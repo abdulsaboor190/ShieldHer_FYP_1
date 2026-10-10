@@ -9,3 +9,9 @@
 .cxx
 local.properties
 .kotlin
+*.log
+*.apk
+*.keystore
+*.jks
+list*.xml
+ui*.xml
