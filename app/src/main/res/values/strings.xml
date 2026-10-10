@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ShieldHer</string>
+    <string name="evidence_vault_title">ShieldHer Evidence Vault</string>
+    <string name="empty_evidence_message">No evidence saved yet. Share a screenshot, photo, or message to ShieldHer to save it here.</string>
 </resources>
