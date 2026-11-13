@@ -15,3 +15,12 @@ local.properties
 *.jks
 list*.xml
 ui*.xml
+
+# ShieldHer Stage 3 additions
+*.aab
+build/
+.gradle/
+captures/
+.externalNativeBuild/
+.cxx/
+*.hprof
