@@ -1,7 +1,4 @@
-﻿# Toolchain Baseline
-FE-E.8 and FE-E.9
-
-# Toolchain baseline
+﻿# Toolchain baseline
 Date: 2026-11-13
 
 ## Freeze rule
@@ -12,7 +9,7 @@ Date: 2026-11-13
 | :--- | :--- | :--- |
 | Android Gradle Plugin (AGP) | 9.4.1 | gradle/libs.versions.toml |
 | Gradle | 9.6.0 | gradle/wrapper/gradle-wrapper.properties |
-| Kotlin | 2.3.21 (bundled in Gradle) / AGP aligned | gradlew --version |
+| Kotlin (Project / Compiler) | 2.2.10 | kotlinCompilerClasspath (org.jetbrains.kotlin:kotlin-compiler-embeddable:2.2.10). Note: Gradle's embedded Kotlin (2.3.21) is for build scripts only. |
 | KSP | 2.2.10-2.0.2 | app/build.gradle.kts |
 | Room | 2.8.4 | app/build.gradle.kts |
 | Jetpack Security (security-crypto) | 1.1.0-alpha06 | app/build.gradle.kts |
@@ -23,16 +20,18 @@ Date: 2026-11-13
 | targetSdk | 37 | app/build.gradle.kts |
 | namespace | com.shieldher | app/build.gradle.kts |
 | Navigation | not found | app/build.gradle.kts (to be added in FE-0.2) |
-| Material Components | 1.10.0 | gradle/libs.versions.toml |
+| Material Components | 1.10.0 | gradle/libs.versions.toml (already present; kept under freeze rule unless FE-0.2 shows a newer version is needed) |
 
 ## This machine
 Machine: Gotam/Bhoomika/Abdul: [fill in who ran this]
-- **JDK:** Oracle Corporation 21.0.7 (Java 21.0.7+8-LTS-245)
-- **JAVA_HOME:** Not set in environment
+- **JDK:** 21.0.7 (Oracle Corporation 21.0.7+8-LTS-245; works with AGP 9.4.1; JAVA_HOME is unset, java resolves from PATH).
 - **Gradle:** 9.6.0
 - **adb:** Android Debug Bridge version 1.0.41 (Version 37.0.1-15733141)
 - **SDK Platforms installed:** android-37.0
 - **SDK Build-tools installed:** 36.0.0
+
+## Experimental Flag & Build Constraints
+android.disallowKotlinSourceSets=false in gradle.properties is an existing experimental flag the build relies on. Do not upgrade AGP or KSP before 10 Dec.
 
 ## Stage 1 test baseline
 - **assembleDebug:** BUILD SUCCESSFUL
@@ -45,5 +44,5 @@ Machine: Gotam/Bhoomika/Abdul: [fill in who ran this]
 
 ## Still to fill in by a human
 - Android Studio version and build number (Help > About)
-- Material Components and Navigation versions (added later in FE-0.2)
+- Navigation version (added later in FE-0.2)
 - Other machines (see docs/machines/ after FE-E.2)
