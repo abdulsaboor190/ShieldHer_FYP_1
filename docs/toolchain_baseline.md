@@ -46,3 +46,18 @@ android.disallowKotlinSourceSets=false in gradle.properties is an existing exper
 - Android Studio version and build number (Help > About)
 - Navigation version (added later in FE-0.2)
 - Other machines (see docs/machines/ after FE-E.2)
+
+
+## Dependencies added in FE-0.2 (16 Nov 2026)
+
+| Library | Version | Configuration | Step-down needed? | Notes |
+| :--- | :--- | :--- | :--- | :--- |
+| `androidx.fragment:fragment-ktx` | 1.6.2 | `implementation` | Stepped down from 1.7.2 to 1.6.2 | Aligned with navigation-fragment-ktx:2.7.7 |
+| `androidx.lifecycle:lifecycle-runtime-ktx` | 2.7.0 | `implementation` | None | Aligned with lifecycle-viewmodel-ktx 2.7.0 |
+| `androidx.navigation:navigation-fragment-ktx` | 2.7.7 | `implementation` | None | Stable release compatible with AGP 9.4.1 |
+| `androidx.navigation:navigation-ui-ktx` | 2.7.7 | `implementation` | None | Stable release compatible with AGP 9.4.1 |
+| `androidx.recyclerview:recyclerview` | 1.3.2 | `implementation` | None | Already present in app/build.gradle.kts |
+| `org.jetbrains.kotlinx:kotlinx-coroutines-test` | 1.8.1 | `testImplementation` | None | Stable coroutines test library |
+| `androidx.arch.core:core-testing` | 2.2.0 | `testImplementation` | None | Standard LiveData / Architecture testing |
+
+*Freeze rule active:* The baseline now includes these exact pinned versions until 10 Dec 2026.

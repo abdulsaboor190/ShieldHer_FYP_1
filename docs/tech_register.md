@@ -13,12 +13,12 @@ Date: 2026-11-13. Technology baseline and tool register for ShieldHer Stage 3.
 | Kotlin (compiler) | Language | All | 2.2.10 (note: Gradle's embedded Kotlin 2.3.21 is for build scripts only) | compiles | Gotam |
 | KSP | Room annotation processing | All | 2.2.10-2.0.2 | compiles | Gotam |
 | Room | Vault metadata DB (no migration this stage) | Existing | 2.8.4 | Stage 1 tests pass | Bhoomika |
-| Jetpack Security (security-crypto) | Vault files and the case store | Existing and new | 1.1.0-alpha06; deprecation status "unknown, check at FE-0.2" unless the build output clearly says otherwise | dependency resolves | Bhoomika |
+| Jetpack Security (security-crypto) | Vault files and the case store | Existing and new | 1.1.0-alpha06; no deprecation flag seen in build output; status unknown, check Maven or the AndroidX release notes | dependency resolves | Bhoomika |
 | Material Components (Material 3) | Theme and components | Already present | 1.10.0 (already in gradle/libs.versions.toml; keep it under the freeze rule unless FE-0.2 shows a newer version is needed) | an M3 component renders | Gotam |
-| Navigation (fragment and UI), no Safe Args | Screen navigation | New | not found yet; added in FE-0.2 | empty fragment navigates | Gotam |
-| fragment-ktx, lifecycle (ViewModel and flow support) | Screens and state | New or existing | [fill in - FE-0.2] | compiles | Gotam |
+| Navigation (fragment and UI), no Safe Args | Screen navigation | New | 2.7.7 (navigation-fragment-ktx, navigation-ui-ktx) | empty fragment navigates | Gotam |
+| fragment-ktx, lifecycle (ViewModel and flow support) | Screens and state | New or existing | fragment-ktx 1.6.2, lifecycle-viewmodel-ktx 2.7.0, lifecycle-runtime-ktx 2.7.0 | compiles | Gotam |
 | AndroidX Test (ext:junit 1.1.5) and Espresso (3.5.1) | UI and instrumented tests | Existing | ext:junit 1.1.5, Espresso 3.5.1 | Stage 1 instrumented tests run on an emulator | Abdul |
-| kotlinx-coroutines-test, arch-core-testing | ViewModel unit tests | New | [fill in - FE-0.2] | template test passes (FE-3.6) | Gotam |
+| kotlinx-coroutines-test, arch-core-testing | ViewModel unit tests | New | kotlinx-coroutines-test 1.8.1, core-testing 2.2.0 | template test passes (FE-3.6) | Gotam |
 | Git and GitHub (repository ShieldHer_FYP_1) | Source control | All | [fill in - each member] | push to a branch works | Abdul |
 | Python 3.11.9 and the pinned Stage 2 packages (scikit-learn 1.9.1, pandas 3.0.6, numpy 2.4.6, shap 0.51.0) | Jury-slide results; later the service | Abdul | Python 3.11.9, scikit-learn 1.9.1, pandas 3.0.6, numpy 2.4.6, shap 0.51.0 | `python scripts/04_freeze.py verify` prints OK (run inside the ml folder) | Abdul |
 | Accessibility Scanner (Play Store) | Contrast and touch-target checks | All | [fill in] | installed on the test phones and runs | All |
