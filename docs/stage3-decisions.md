@@ -50,3 +50,35 @@ FE-0.1: decisions D1 to D17 and DS-1 to DS-4
 
 **Cut order if time runs out:** 11, 10, 9, tamper tool, polish of 7.
 **Never cut:** screens 2 to 6, the Verify button, demo mode, Settings delete-all and the limits page.
+
+
+## FE-0.6 findings (sweepOrphans investigation)
+
+### 1. Call Sites in `app/src`
+- `app/src/main/java/com/shieldher/vault/data/EvidenceRepository.kt:57` — Definition of `suspend fun sweepOrphans(): Int`.
+- `app/src/main/java/com/shieldher/vault/intake/IntakeActivity.kt:113` — In `handleIncomingIntent() -> lifecycleScope.launch -> withContext(Dispatchers.IO)`. Invoked immediately prior to `repo.intake(...)`.
+- `app/src/main/java/com/shieldher/vault/ui/EvidenceListActivity.kt:54` — In `onCreate() -> lifecycleScope.launch`. Invoked on activity start before collecting evidence flow.
+- `app/src/androidTest/java/com/shieldher/vault/OrphanSweepTest.kt:120` — In instrumented unit test `sweepOrphans_deletesOnlyUnbackedNonInFlightFile()`.
+
+### 2. In-Flight Tracking Mechanism
+- **Declaration:** Declared in `EvidenceRepository.Companion` (`EvidenceRepository.kt:36`):
+  `private val inFlightIds = ConcurrentHashMap.newKeySet<String>()`
+- **Scope & Thread Safety:** Because it is declared on the `companion object`, it is shared across all instances of `EvidenceRepository` within the same JVM process. `ConcurrentHashMap.newKeySet()` is thread-safe.
+
+### 3. Repository Instantiation
+- `IntakeActivity.kt:111`: Instantiates `EvidenceRepository(this@IntakeActivity)` per intake intent.
+- `EvidenceListActivity.kt:24`: Instantiates `lazy { EvidenceRepository(this) }`.
+- `EvidenceListViewModel.kt:11`: Instantiates `EvidenceRepository(application)`.
+- Each call site constructs its own distinct instance of `EvidenceRepository` (it is not a singleton class, though its underlying `EvidenceDatabase` is a Room singleton).
+
+### 4. Code vs Inference Answers
+- **(1) Can a sweep started from one repository instance delete a file that another instance is still writing?**
+  - *Verified in code:* Within the same process, no. `inFlightIds` is held in the static `companion object` shared by all repository instances. During `intake()`, the UUID is inserted into `inFlightIds` before file creation and removed only in the `finally` block after DB insertion. `sweepOrphans()` checks `inFlightIds.contains(fileName)` and skips matching files.
+  - *Inference / Edge cases:* If intake crashed or the OS killed the process during write, the file remains on disk with no DB record; upon next launch, `inFlightIds` is clean and `sweepOrphans()` deletes the partial file. Furthermore, if any background service or multi-process component were introduced, companion state would not bridge processes.
+- **(2) Which Stage 1 screen triggers the sweep, and what happens when EvidenceListActivity is replaced by a fragment?**
+  - *Verified in code:* Stage 1 triggers the sweep in `EvidenceListActivity.onCreate()` and `IntakeActivity.handleIncomingIntent()`.
+  - *Inference:* When `EvidenceListActivity` is replaced by `EvidenceListFragment` hosted inside `MainActivity`, `EvidenceListActivity` is no longer in the backstack. Unless the new fragment explicitly launches `sweepOrphans()`, the list-screen sweep ceases to run. `IntakeActivity` will continue to run its pre-intake sweep.
+
+### 5. Recommendation for D13
+- **Decision:** Keep **option (b)** ("New screens never call `sweepOrphans()`").
+- **Rationale:** Triggering filesystem sweeps during fragment navigation or UI rendering causes unnecessary background disk I/O and latency on app start. `IntakeActivity` already cleans up before accepting new files. Option (c) (`sweepStaleOrphans()`) is unnecessary overhead for FYP-I and remains deferred.
