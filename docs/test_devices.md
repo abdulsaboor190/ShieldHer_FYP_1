@@ -11,3 +11,7 @@ FE-E.3 and FE-E.4
 
 | Name | Android Version | API Level | Device | Date Tested | App Launched |
 | --- | --- | --- | --- | --- | --- |
+| Infinix X680B | 10 | 29 | Infinix-X680B (INFINIX MOBILITY LIMITED) | 2026-11-16 | yes |
+
+- Accessibility Scanner installed: no
+- Holds no real evidence (confirmed by Abdul Saboor)
