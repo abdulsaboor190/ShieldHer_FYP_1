@@ -10,6 +10,7 @@ All commands are PowerShell, run in `D:\23i-3039\P2\ShieldHer1\Shieldher` unless
 - Install on the connected device or emulator: `.\gradlew.bat installDebug`. Set `$env:ANDROID_SERIAL="<serial>"` first, otherwise it installs on EVERY connected device.
 - Instrumented tests: `.\gradlew.bat connectedDebugAndroidTest` (EMULATOR ONLY, never a phone)
 - List devices: `adb devices -l`
+- Token check (FE-3.1d): `py -3 scripts/check_tokens.py` — scans dashboard layout XMLs (not Stage 1 layouts listed in `scripts/token_check_stage1_layouts.txt`) for hardcoded hex colours, hardcoded text strings, and dimension literals (dp/sp other than 0dp); also scans dashboard Kotlin files under `app/src/main/java/com/shieldher/dashboard` for `Color.parseColor(`, `Color.rgb(`, `Color.argb(`. Exits non-zero if any violation is found. Run before every PR merge.
 
 ## Git workflow (repository: https://github.com/abdulsaboor190/ShieldHer_FYP_1.git)
 - Start every task from a clean, updated main: `git switch main; git pull; git status --short` (must be empty).
