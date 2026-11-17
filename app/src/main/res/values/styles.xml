@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Text Appearances (Material 3 parentage) -->
+    <style name="ShieldHer.TextAppearance.Title" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textSize">@dimen/sh_text_title</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/sh_text</item>
+    </style>
+
+    <style name="ShieldHer.TextAppearance.Heading" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:textSize">@dimen/sh_text_heading</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/sh_text</item>
+    </style>
+
+    <style name="ShieldHer.TextAppearance.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textSize">@dimen/sh_text_body</item>
+        <item name="android:textColor">@color/sh_text</item>
+    </style>
+
+    <style name="ShieldHer.TextAppearance.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textSize">@dimen/sh_text_body_small</item>
+        <item name="android:textColor">@color/sh_text_secondary</item>
+    </style>
+
+    <style name="ShieldHer.TextAppearance.Caption" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">@dimen/sh_text_caption</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/sh_text_secondary</item>
+    </style>
+
+    <!-- Shape Appearances -->
+    <style name="ShieldHer.ShapeAppearance.Card" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerSize">@dimen/sh_radius_card</item>
+    </style>
+
+    <style name="ShieldHer.ShapeAppearance.Button" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerSize">@dimen/sh_radius_button</item>
+    </style>
+</resources>
