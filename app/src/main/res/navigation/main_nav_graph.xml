@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.shieldher.dashboard.home.HomeFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/evidence"
+        android:name="com.shieldher.dashboard.evidence.EvidenceListFragment"
+        android:label="@string/nav_evidence"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/cases"
+        android:name="com.shieldher.dashboard.cases.CasesListFragment"
+        android:label="@string/nav_cases"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/more"
+        android:name="com.shieldher.dashboard.settings.MoreFragment"
+        android:label="@string/nav_more"
+        tools:layout="@layout/fragment_placeholder" />
+
+</navigation>
