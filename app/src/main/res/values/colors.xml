@@ -2,4 +2,47 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- ShieldHer design tokens -->
+    <color name="sh_white">#FFFFFF</color>
+    <color name="sh_black">#000000</color>
+    <color name="sh_primary">#164E50</color>
+    <color name="sh_on_primary">#FFFFFF</color>
+    <color name="sh_primary_container">#E4F0E9</color>
+    <color name="sh_on_primary_container">#164E50</color>
+    <color name="sh_secondary">#267878</color>
+    <color name="sh_on_secondary">#FFFFFF</color>
+    <color name="sh_secondary_container">#A8D5C8</color>
+    <color name="sh_on_secondary_container">#164E50</color>
+    <!-- DECORATION ONLY, never text, icons, loading or selected states -->
+    <color name="sh_accent">#55A6A0</color>
+    <color name="sh_mint">#A8D5C8</color>
+    <color name="sh_surface_light">#E4F0E9</color>
+    <color name="sh_background">#F8FAF7</color>
+    <color name="sh_card">#FFFFFF</color>
+    <color name="sh_text">#263635</color>
+    <color name="sh_text_secondary">#5A6662</color>
+    <color name="sh_outline">#75817D</color>
+    <color name="sh_outline_variant">#A8D5C8</color>
+    <color name="sh_error">#AD464E</color>
+    <color name="sh_on_error">#FFFFFF</color>
+    <color name="sh_error_container">#F8E8E9</color>
+    <color name="sh_on_error_container">#AD464E</color>
+
+    <!-- Status colours: fill colours are for tinted backgrounds only; icons and text use the *_text colours -->
+    <color name="sh_status_success_fill">#38836B</color>
+    <color name="sh_status_success_text">#2F6F5A</color>
+    <color name="sh_tint_success">#E6F2EE</color>
+
+    <color name="sh_status_warning_fill">#D69A42</color>
+    <color name="sh_status_warning_text">#8F5E12</color>
+    <color name="sh_tint_warning">#FBF1E0</color>
+
+    <color name="sh_status_neutral_fill">#898D95</color>
+    <color name="sh_status_neutral_text">#666A72</color>
+    <color name="sh_tint_neutral">#ECEDEF</color>
+
+    <color name="sh_status_error_fill">#C45B62</color>
+    <color name="sh_status_error_text">#AD464E</color>
+    <color name="sh_tint_error">#F8E8E9</color>
 </resources>
