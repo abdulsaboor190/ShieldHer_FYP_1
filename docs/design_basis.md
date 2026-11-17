@@ -126,4 +126,4 @@ Proposed defaults (confirm at FE-3.1c):
 
 ## Icons
 
-Icons are Material vector icons, licence Apache 2.0. Added so far: ic_status_unchanged (Material check_circle).
+Icons are Material vector icons, licence Apache 2.0. Added so far: ic_status_unchanged (Material check_circle), ic_status_changed (Material warning), ic_status_missing (Material cancel), ic_status_not_checked (Material schedule), ic_status_deleted (Material delete), ic_status_preview (Material visibility), ic_nav_home (Material home), ic_nav_evidence (Material folder), ic_nav_cases (Material assignment), ic_nav_more (Material more_horiz).
