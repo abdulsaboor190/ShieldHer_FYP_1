@@ -2,4 +2,50 @@
     <string name="app_name">ShieldHer</string>
     <string name="evidence_vault_title">ShieldHer Evidence Vault</string>
     <string name="empty_evidence_message">No evidence saved yet. Share a screenshot, photo, or message to ShieldHer to save it here.</string>
+
+    <!-- ShieldHer dashboard strings -->
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_evidence">Evidence</string>
+    <string name="nav_cases">Cases</string>
+    <string name="nav_more">More</string>
+
+    <!-- Status labels -->
+    <string name="status_unchanged">Unchanged since saved</string>
+    <string name="status_changed">Changed or unreadable since saved</string>
+    <string name="status_missing">File missing</string>
+    <string name="status_not_checked">Not checked yet</string>
+    <string name="status_deleted">Evidence deleted</string>
+    <string name="status_preview">Preview: not working yet</string>
+
+    <!-- Date / Time labels -->
+    <string name="label_received">Received by ShieldHer</string>
+    <string name="label_you_entered">You entered</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="evidence_received_at_format">Received by ShieldHer: %1$s</string>
+
+    <!-- Four Fixed Blocks (from docs/wording_guide.md) -->
+    <string name="block_unchanged_meaning">The saved copy is identical to what ShieldHer received. It does not show who made it, when it was originally made, or whether it was edited before you shared it. It does not decide whether it can be used in a legal process.</string>
+    <string name="block_time">\'Received by ShieldHer\' comes from this phone\'s clock. \'You entered\' is a date you typed yourself.</string>
+    <string name="dialog_delete_message">This removes the file and its record from this phone. It cannot be undone. Case notes that mention it stay, marked \'evidence deleted\'.</string>
+    <string name="settings_storage_text">Evidence files are stored encrypted, with keys held in the Android Keystore. Case notes are stored encrypted in a separate file. The vault\'s technical record of each item (receipt hash, receipt time, time zone, source label, file size and file path) is kept in the app\'s private storage in a database that is not encrypted.</string>
+
+    <!-- Dialogs and common actions -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_delete_title">Delete this evidence?</string>
+    <string name="common_delete">Delete</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_ok">OK</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="common_retry">Try again</string>
+
+    <!-- States and placeholders -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="empty_generic">Nothing here yet.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="account_check_preview_label">Preview: not working yet</string>
+    <string name="account_check_coming_soon">Coming in the next version</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="placeholder_screen_note">This screen is coming soon.</string>
 </resources>
