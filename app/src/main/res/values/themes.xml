@@ -1,8 +1,45 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ShieldHer" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.ShieldHer" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/sh_primary</item>
+        <item name="colorOnPrimary">@color/sh_on_primary</item>
+        <item name="colorPrimaryContainer">@color/sh_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/sh_on_primary_container</item>
+        <item name="colorSecondary">@color/sh_secondary</item>
+        <item name="colorOnSecondary">@color/sh_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/sh_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/sh_on_secondary_container</item>
+        <item name="colorTertiary">@color/sh_accent</item>
+        <item name="colorOnTertiary">@color/sh_text</item>
+        <item name="colorTertiaryContainer">@color/sh_secondary_container</item>
+        <item name="colorOnTertiaryContainer">@color/sh_on_secondary_container</item>
+        <item name="android:colorBackground">@color/sh_background</item>
+        <item name="colorOnBackground">@color/sh_text</item>
+        <item name="colorSurface">@color/sh_card</item>
+        <item name="colorOnSurface">@color/sh_text</item>
+        <item name="colorSurfaceVariant">@color/sh_surface_light</item>
+        <item name="colorOnSurfaceVariant">@color/sh_text_secondary</item>
+        <item name="colorOutline">@color/sh_outline</item>
+        <item name="colorOutlineVariant">@color/sh_outline_variant</item>
+        <item name="colorSurfaceContainerLowest">@color/sh_card</item>
+        <item name="colorSurfaceContainerLow">@color/sh_background</item>
+        <item name="colorSurfaceContainer">@color/sh_background</item>
+        <item name="colorSurfaceContainerHigh">@color/sh_surface_light</item>
+        <item name="colorSurfaceContainerHighest">@color/sh_surface_light</item>
+        <item name="colorSurfaceInverse">@color/sh_text</item>
+        <item name="colorOnSurfaceInverse">@color/sh_background</item>
+        <item name="colorPrimaryInverse">@color/sh_secondary_container</item>
+        <item name="colorError">@color/sh_error</item>
+        <item name="colorOnError">@color/sh_on_error</item>
+        <item name="colorErrorContainer">@color/sh_error_container</item>
+        <item name="colorOnErrorContainer">@color/sh_on_error_container</item>
+        <item name="colorSurfaceDim">@color/sh_surface_light</item>
+        <item name="colorSurfaceBright">@color/sh_card</item>
+
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:statusBarColor">@color/sh_primary</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="Theme.ShieldHer" parent="Base.Theme.ShieldHer" />
