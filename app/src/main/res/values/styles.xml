@@ -37,4 +37,34 @@
     <style name="ShieldHer.ShapeAppearance.Button" parent="ShapeAppearance.Material3.Corner.Small">
         <item name="cornerSize">@dimen/sh_radius_button</item>
     </style>
+
+    <!-- FE-3.3 components: Buttons & Loading Indicator -->
+    <style name="ShieldHer.Button.Primary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/sh_primary</item>
+        <item name="android:textColor">@color/sh_white</item>
+        <item name="shapeAppearance">@style/ShieldHer.ShapeAppearance.Button</item>
+        <item name="android:minHeight">@dimen/sh_touch_min</item>
+    </style>
+
+    <style name="ShieldHer.Button.Secondary" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textColor">@color/sh_primary</item>
+        <item name="strokeColor">@color/sh_primary</item>
+        <item name="shapeAppearance">@style/ShieldHer.ShapeAppearance.Button</item>
+        <item name="android:minHeight">@dimen/sh_touch_min</item>
+    </style>
+
+    <style name="ShieldHer.Button.Destructive" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/sh_error</item>
+        <item name="android:textColor">@color/sh_white</item>
+        <item name="shapeAppearance">@style/ShieldHer.ShapeAppearance.Button</item>
+        <item name="android:minHeight">@dimen/sh_touch_min</item>
+    </style>
+
+    <style name="ShieldHer.Button.Dialog.Destructive" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/sh_status_error_text</item>
+    </style>
+
+    <style name="ShieldHer.Widget.LoadingIndicator" parent="Widget.Material3.CircularProgressIndicator">
+        <item name="indicatorColor">@color/sh_secondary</item>
+    </style>
 </resources>
