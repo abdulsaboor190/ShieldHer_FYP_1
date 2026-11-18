@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_status_badge"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/sh_space_8"
+    android:paddingTop="@dimen/sh_space_4"
+    android:paddingEnd="@dimen/sh_space_8"
+    android:paddingBottom="@dimen/sh_space_4">
+
+    <ImageView
+        android:id="@+id/badge_icon"
+        android:layout_width="@dimen/sh_icon_small"
+        android:layout_height="@dimen/sh_icon_small"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no" />
+
+    <TextView
+        android:id="@+id/badge_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/sh_space_4"
+        android:textAppearance="@style/ShieldHer.TextAppearance.Caption" />
+
+</LinearLayout>

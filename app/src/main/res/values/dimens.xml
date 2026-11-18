@@ -23,4 +23,7 @@
     <dimen name="sh_text_body">16sp</dimen>
     <dimen name="sh_text_body_small">14sp</dimen>
     <dimen name="sh_text_caption">12sp</dimen>
+
+    <!-- FE-3.3 components -->
+    <dimen name="sh_radius_badge">16dp</dimen>
 </resources>
