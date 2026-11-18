@@ -9,14 +9,21 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.shieldher.R
+import com.shieldher.dashboard.common.AppSettings
+import com.shieldher.dashboard.common.applyTo
 import com.shieldher.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var appSettings: AppSettings
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Screen protection (FLAG_SECURE) applied before setContentView
+        appSettings = AppSettings(this)
+        applyTo(window, appSettings)
 
         // Edge-to-edge: let the app draw behind system bars
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -42,5 +49,11 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNav.setupWithNavController(navController)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Re-apply in case settings changed while paused
+        applyTo(window, appSettings)
     }
 }
