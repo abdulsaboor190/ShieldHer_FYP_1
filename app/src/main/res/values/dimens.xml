@@ -26,4 +26,5 @@
 
     <!-- FE-3.3 components -->
     <dimen name="sh_radius_badge">16dp</dimen>
+    <dimen name="sh_stroke_thin">1dp</dimen>
 </resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/sh_card"
+    app:cardCornerRadius="@dimen/sh_radius_card"
+    app:cardElevation="0dp"
+    app:shapeAppearance="@style/ShieldHer.ShapeAppearance.Card"
+    app:strokeColor="@color/sh_outline_variant"
+    app:strokeWidth="@dimen/sh_stroke_thin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/sh_space_16">
+
+        <TextView
+            android:id="@+id/card_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+        <TextView
+            android:id="@+id/card_received_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sh_space_4"
+            android:textAppearance="@style/ShieldHer.TextAppearance.BodySmall" />
+
+        <com.shieldher.dashboard.common.StatusBadge
+            android:id="@+id/card_status_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sh_space_12" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
