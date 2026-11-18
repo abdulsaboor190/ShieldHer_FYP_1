@@ -1,3 +1,2 @@
 activity_evidence_list.xml
-activity_main.xml
 item_evidence.xml
