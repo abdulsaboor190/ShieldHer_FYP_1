@@ -1,23 +1,48 @@
 package com.shieldher.dashboard.data
 
+import android.content.Context
+import com.shieldher.dashboard.cases.CaseStore
+import com.shieldher.dashboard.cases.DefaultCaseRepository
 import com.shieldher.dashboard.data.fake.FakeCaseRepository
 import com.shieldher.dashboard.data.fake.FakeEvidenceGateway
+import com.shieldher.vault.data.EvidenceRepository
+import java.io.File
 
 /**
  * ServiceLocator providing dependencies to dashboard ViewModels and screens.
- *
- * TEMPORARY: P2-4 switches these defaults to the real implementations; fakes stay only
- * for tests and the debug gallery.
+ * Defaults to production implementations initialized via [init].
  */
 object ServiceLocator {
 
-    var evidenceGateway: EvidenceGateway = FakeEvidenceGateway()
-    var caseRepository: CaseRepository = FakeCaseRepository()
+    private var _evidenceGateway: EvidenceGateway? = null
+    var evidenceGateway: EvidenceGateway
+        get() = _evidenceGateway ?: FakeEvidenceGateway().also { _evidenceGateway = it }
+        set(value) {
+            _evidenceGateway = value
+        }
+
+    private var _caseRepository: CaseRepository? = null
+    var caseRepository: CaseRepository
+        get() = _caseRepository ?: FakeCaseRepository().also { _caseRepository = it }
+        set(value) {
+            _caseRepository = value
+        }
+
     val verificationSession: VerificationSession = VerificationSession()
 
+    fun init(context: Context) {
+        val appContext = context.applicationContext
+        val vaultRepo = EvidenceRepository(appContext)
+        _evidenceGateway = VaultEvidenceGateway(vaultRepo)
+
+        val casesDir = File(appContext.filesDir, "cases")
+        val caseStore = CaseStore(appContext, casesDir)
+        _caseRepository = DefaultCaseRepository(caseStore)
+    }
+
     fun installFakes() {
-        evidenceGateway = FakeEvidenceGateway()
-        caseRepository = FakeCaseRepository()
+        _evidenceGateway = FakeEvidenceGateway()
+        _caseRepository = FakeCaseRepository()
         verificationSession.clear()
     }
 }

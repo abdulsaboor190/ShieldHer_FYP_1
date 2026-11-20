@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import java.util.UUID
 
-class FakeCaseRepository : CaseRepository {
+internal class FakeCaseRepository : CaseRepository {
 
     private val cases = MutableStateFlow(createInitialSyntheticCases())
     private val items = MutableStateFlow(createInitialSyntheticItems())

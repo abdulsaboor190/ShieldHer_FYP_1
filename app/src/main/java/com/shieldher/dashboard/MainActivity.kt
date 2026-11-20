@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.shieldher.R
 import com.shieldher.dashboard.common.AppSettings
 import com.shieldher.dashboard.common.applyTo
+import com.shieldher.dashboard.data.ServiceLocator
 import com.shieldher.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ServiceLocator.init(applicationContext)
 
         // Screen protection (FLAG_SECURE) applied before setContentView
         appSettings = AppSettings(this)
