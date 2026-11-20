@@ -62,3 +62,52 @@ FE-0.3 and FE-2.4
 ### 5. Open Items
 1. `IntegrityTest.intake_acceptsInputAtLimit` failure: The test compares plaintext payload size with encrypted ciphertext length on disk (1024 vs 1080 bytes). Needs review with Bhoomika as an existing Stage 1 test assertion gap.
 2. 2 known Stage 1 `@VisibleForTesting` lint errors remain deferred under the Stage 1 code freeze.
+
+
+## FE-2.4 additivity proof and FE-2.7 log audit (20 Nov 2026)
+
+### 1. Regression Test Results
+- **Unit Tests (`testDebugUnitTest`):** **45 tests passed**, 0 failed, 0 skipped.
+  - `com.shieldher.ExampleUnitTest`: 1 passed
+  - `com.shieldher.dashboard.SpikeToolchainTest`: 1 passed
+  - `com.shieldher.dashboard.common.BadgeStatusTest`: 3 passed
+  - `com.shieldher.dashboard.common.ScreenProtectionTest`: 4 passed
+  - `com.shieldher.dashboard.common.UiStateTemplateTest`: 5 passed
+  - `com.shieldher.dashboard.data.BadgeMappingTest`: 4 passed
+  - `com.shieldher.dashboard.data.FakeCaseRepositoryTest`: 8 passed
+  - `com.shieldher.dashboard.data.FakeEvidenceGatewayTest`: 6 passed
+  - `com.shieldher.dashboard.data.VaultMappersTest`: 3 passed
+  - `com.shieldher.dashboard.data.VerificationSessionTest`: 4 passed
+  - `com.shieldher.vault.files.HashUtilTest`: 6 passed
+- **Instrumented Tests:** Not run (no active emulator serial provided). All instrumented test sources compile cleanly without errors via `assembleDebugAndroidTest`.
+
+### 2. Additivity Proof (Stage 1 Files Untouched)
+Comparison against Stage 1 close (`4808f10` / baseline):
+
+| Added Lines | Deleted Lines | File Path | Status |
+| :---: | :---: | :--- | :--- |
+| 131 | **0** | `app/src/main/java/com/shieldher/vault/data/EvidenceRepository.kt` | Modified (Additive only) |
+| 11 | **0** | `app/src/main/java/com/shieldher/vault/data/EvidenceDisplay.kt` | New File |
+| 8 | **0** | `app/src/main/java/com/shieldher/vault/data/ImportResult.kt` | New File |
+| 7 | **0** | `app/src/main/java/com/shieldher/vault/data/IntegrityResult.kt` | New File |
+| 89 | **0** | `app/src/androidTest/java/com/shieldher/vault/ImportFromUriTest.kt` | New File |
+| 107 | **0** | `app/src/androidTest/java/com/shieldher/vault/IntegrityDetailedTest.kt` | New File |
+| 126 | **0** | `app/src/androidTest/java/com/shieldher/vault/ReadForDisplayTest.kt` | New File |
+| 229 | **0** | `app/src/androidTest/java/com/shieldher/dashboard/cases/CaseStoreTest.kt` | New File |
+| 192 | **0** | `app/src/androidTest/java/com/shieldher/dashboard/cases/DefaultCaseRepositoryTest.kt` | New File |
+
+*Audit Summary:* **0 lines deleted** across all Stage 1 files.
+The only modified Stage 1 file is `EvidenceRepository.kt`, where three new methods were appended:
+1. `suspend fun verifyIntegrityDetailed(id: String): IntegrityResult` (FE-2.1)
+2. `suspend fun readForDisplay(id: String, maxBytes: Int, maxImageSidePx: Int): EvidenceDisplay` (FE-2.2)
+3. `suspend fun importFromUri(uri: Uri, mimeType: String?): ImportResult` (FE-2.3)
+No existing signatures, methods, or classes in Stage 1 were altered, renamed, or deleted.
+
+### 3. Log Audit in New Code
+Scan of all new and modified files in `app/src/main/java/com/shieldher/vault` and `app/src/main/java/com/shieldher/dashboard` for `Log.*`, `println`, `Timber`, and `printStackTrace`:
+
+*Results:* **Zero occurrences** found in any new Phase 2 code.
+The only logging statements in the entire codebase are the original 8 safe statements from Stage 1 (verified in FE-0.3 above), which log only exception class names, constant messages, and counters.
+
+### 4. Open Items
+- None for Phase 2. Phase 2 deliverables (P2-0, P2-1, P2-2, P2-3, P2-4, and P2-5) are complete.
