@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.util.UUID
 
-class FakeEvidenceGateway : EvidenceGateway {
+internal class FakeEvidenceGateway : EvidenceGateway {
 
     private val items = MutableStateFlow(createInitialSyntheticItems())
 
