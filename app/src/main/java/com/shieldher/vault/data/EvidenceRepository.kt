@@ -223,4 +223,135 @@ class EvidenceRepository(
             delegate.close()
         }
     }
+
+    suspend fun verifyIntegrityDetailed(id: String): IntegrityResult {
+        val entity = dao.getById(id) ?: return IntegrityResult.MISSING
+        val targetFile = java.io.File(context.filesDir, "$evidenceDirName/${entity.id}")
+        if (!targetFile.exists()) {
+            return IntegrityResult.MISSING
+        }
+
+        return try {
+            val currentDigest = MessageDigest.getInstance("SHA-256")
+            val buffer = ByteArray(8192)
+            fileStore.read(entity.id).use { input ->
+                DigestInputStream(input, currentDigest).use { dis ->
+                    while (dis.read(buffer) != -1) {
+                        // drain stream
+                    }
+                }
+            }
+            val currentHash = currentDigest.digest().toHex()
+            if (currentHash.equals(entity.hash, ignoreCase = true)) {
+                IntegrityResult.UNCHANGED
+            } else {
+                IntegrityResult.CHANGED
+            }
+        } catch (_: Exception) {
+            IntegrityResult.CHANGED
+        }
+    }
+
+    suspend fun readForDisplay(
+        id: String,
+        maxBytes: Int = 10_485_760,
+        maxImageSidePx: Int = 1080
+    ): EvidenceDisplay {
+        val entity = dao.getById(id) ?: return EvidenceDisplay.Unavailable
+        val targetFile = java.io.File(context.filesDir, "$evidenceDirName/${entity.id}")
+        if (!targetFile.exists()) {
+            return EvidenceDisplay.Unavailable
+        }
+
+        if (entity.fileSizeBytes > maxBytes) {
+            return EvidenceDisplay.TooLarge
+        }
+
+        val mime = entity.mimeType.lowercase()
+
+        return try {
+            if (mime == "text/plain") {
+                val bytes = fileStore.read(entity.id).use { it.readBytes() }
+                if (bytes.size > maxBytes) {
+                    EvidenceDisplay.TooLarge
+                } else {
+                    EvidenceDisplay.Text(String(bytes, Charsets.UTF_8))
+                }
+            } else if (mime.startsWith("image/")) {
+                val bytes = fileStore.read(entity.id).use { it.readBytes() }
+                if (bytes.size > maxBytes) {
+                    EvidenceDisplay.TooLarge
+                } else {
+                    val boundsOptions = android.graphics.BitmapFactory.Options().apply {
+                        inJustDecodeBounds = true
+                    }
+                    android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size, boundsOptions)
+
+                    val origWidth = boundsOptions.outWidth
+                    val origHeight = boundsOptions.outHeight
+                    if (origWidth <= 0 || origHeight <= 0) {
+                        return EvidenceDisplay.Unavailable
+                    }
+
+                    var inSampleSize = 1
+                    val longestSide = maxOf(origWidth, origHeight)
+                    while ((longestSide / inSampleSize) > maxImageSidePx) {
+                        inSampleSize *= 2
+                    }
+
+                    val decodeOptions = android.graphics.BitmapFactory.Options().apply {
+                        this.inSampleSize = inSampleSize
+                    }
+                    val bitmap = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size, decodeOptions)
+                    if (bitmap != null) {
+                        EvidenceDisplay.Image(bitmap)
+                    } else {
+                        EvidenceDisplay.Unavailable
+                    }
+                }
+            } else {
+                EvidenceDisplay.Unsupported
+            }
+        } catch (_: Exception) {
+            EvidenceDisplay.Unavailable
+        }
+    }
+
+    suspend fun importFromUri(
+        uri: android.net.Uri,
+        mimeType: String?
+    ): ImportResult = withContext(Dispatchers.IO) {
+        try {
+            sweepOrphans()
+        } catch (_: Throwable) {
+        }
+
+        val resolvedMime = mimeType ?: context.contentResolver.getType(uri) ?: "application/octet-stream"
+
+        val inputStream = try {
+            context.contentResolver.openInputStream(uri)
+        } catch (_: Throwable) {
+            null
+        } ?: return@withContext ImportResult.Failed
+
+        try {
+            val entity = intake(
+                input = inputStream,
+                mimeType = resolvedMime,
+                sourceLabel = "In-app import"
+            )
+            ImportResult.Success(entity.id)
+        } catch (e: EvidenceTooLargeException) {
+            ImportResult.TooLarge
+        } catch (e: IllegalArgumentException) {
+            ImportResult.Unsupported
+        } catch (_: Throwable) {
+            ImportResult.Failed
+        } finally {
+            try {
+                inputStream.close()
+            } catch (_: Throwable) {
+            }
+        }
+    }
 }
