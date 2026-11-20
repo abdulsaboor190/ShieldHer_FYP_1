@@ -1,5 +1,6 @@
 package com.shieldher.dashboard.data
 
+import android.net.Uri
 import com.shieldher.dashboard.data.fake.FakeEvidenceGateway
 import com.shieldher.dashboard.testing.MainDispatcherRule
 import kotlinx.coroutines.flow.first
@@ -17,6 +18,29 @@ class FakeEvidenceGatewayTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val gateway = FakeEvidenceGateway()
+
+    /**
+     * Minimal Fake Uri for JVM unit tests without needing mocked android.jar.
+     */
+    private class TestUri(private val uriString: String) : Uri() {
+        override fun toString(): String = uriString
+        override fun isHierarchical(): Boolean = true
+        override fun isRelative(): Boolean = false
+        override fun getScheme(): String? = "content"
+        override fun getAuthority(): String? = "com.shieldher.test"
+        override fun getPath(): String? = "/item/1"
+        override fun getEncodedPath(): String? = "/item/1"
+        override fun getQuery(): String? = null
+        override fun getEncodedQuery(): String? = null
+        override fun getFragment(): String? = null
+        override fun getEncodedFragment(): String? = null
+        override fun getEncodedAuthority(): String? = "com.shieldher.test"
+        override fun getEncodedUserInfo(): String? = null
+        override fun getUserInfo(): String? = null
+        override fun getHost(): String? = "com.shieldher.test"
+        override fun getPort(): Int = -1
+        override fun buildUpon(): Builder = throw UnsupportedOperationException()
+    }
 
     @Test
     fun observeEvidence_initiallyEmitsSyntheticItems() = runTest {
@@ -43,8 +67,7 @@ class FakeEvidenceGatewayTest {
 
     @Test
     fun importFromUri_addsItemAndReturnsSuccess() = runTest {
-        // Use Uri.parse() — pure-Java implementation, safe in JVM unit tests.
-        val testUri = android.net.Uri.parse("content://com.shieldher.test/item/1")
+        val testUri = TestUri("content://com.shieldher.test/item/1")
         val outcome = gateway.importFromUri(testUri, "image/png")
         assertTrue(outcome is ImportOutcome.Success)
         val newId = (outcome as ImportOutcome.Success).id
