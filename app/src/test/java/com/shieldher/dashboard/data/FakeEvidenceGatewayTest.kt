@@ -43,7 +43,9 @@ class FakeEvidenceGatewayTest {
 
     @Test
     fun importFromUri_addsItemAndReturnsSuccess() = runTest {
-        val outcome = gateway.importFromUri(android.net.Uri.EMPTY, "image/png")
+        // Use Uri.parse() — pure-Java implementation, safe in JVM unit tests.
+        val testUri = android.net.Uri.parse("content://com.shieldher.test/item/1")
+        val outcome = gateway.importFromUri(testUri, "image/png")
         assertTrue(outcome is ImportOutcome.Success)
         val newId = (outcome as ImportOutcome.Success).id
 
