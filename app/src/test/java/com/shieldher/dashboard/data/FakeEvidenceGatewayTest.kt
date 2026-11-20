@@ -1,5 +1,6 @@
 package com.shieldher.dashboard.data
 
+import android.net.TestUri
 import android.net.Uri
 import com.shieldher.dashboard.data.fake.FakeEvidenceGateway
 import com.shieldher.dashboard.testing.MainDispatcherRule
@@ -11,7 +12,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
-import sun.misc.Unsafe
 
 class FakeEvidenceGatewayTest {
 
@@ -22,17 +22,15 @@ class FakeEvidenceGatewayTest {
 
     companion object {
         /**
-         * Allocates an android.net.Uri instance without calling the stubbed SDK constructor.
-         * Safe in pure JVM unit tests.
+         * Concrete Uri subclass for JVM unit tests.
+         * Lives in src/test/java/android/net/TestUri.java (same package as Uri),
+         * which allows calling the package-private super() constructor.
+         * Uri.<init>() initialises 'this' via Object.<init>() then throws
+         * RuntimeException("Stub!"); TestUri's constructor catches that throw so
+         * the instance is returned cleanly.  FakeEvidenceGateway.importFromUri
+         * never calls any method on the uri parameter.
          */
-        private fun createTestUri(): Uri {
-            val unsafeField = Unsafe::class.java.getDeclaredField("theUnsafe")
-            unsafeField.isAccessible = true
-            val unsafe = unsafeField.get(null) as Unsafe
-            val stringUriClass = Class.forName("android.net.Uri\$StringUri")
-            val rawInstance = unsafe.allocateInstance(stringUriClass)
-            return rawInstance as Uri
-        }
+        private val testUri: Uri = TestUri.create()
     }
 
     @Test
@@ -60,7 +58,6 @@ class FakeEvidenceGatewayTest {
 
     @Test
     fun importFromUri_addsItemAndReturnsSuccess() = runTest {
-        val testUri = createTestUri()
         val outcome = gateway.importFromUri(testUri, "image/png")
         assertTrue(outcome is ImportOutcome.Success)
         val newId = (outcome as ImportOutcome.Success).id
