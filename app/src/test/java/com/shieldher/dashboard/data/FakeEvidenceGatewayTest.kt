@@ -11,6 +11,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import sun.misc.Unsafe
 
 class FakeEvidenceGatewayTest {
 
@@ -19,27 +20,19 @@ class FakeEvidenceGatewayTest {
 
     private val gateway = FakeEvidenceGateway()
 
-    /**
-     * Minimal Fake Uri for JVM unit tests without needing mocked android.jar.
-     */
-    private class TestUri(private val uriString: String) : Uri() {
-        override fun toString(): String = uriString
-        override fun isHierarchical(): Boolean = true
-        override fun isRelative(): Boolean = false
-        override fun getScheme(): String? = "content"
-        override fun getAuthority(): String? = "com.shieldher.test"
-        override fun getPath(): String? = "/item/1"
-        override fun getEncodedPath(): String? = "/item/1"
-        override fun getQuery(): String? = null
-        override fun getEncodedQuery(): String? = null
-        override fun getFragment(): String? = null
-        override fun getEncodedFragment(): String? = null
-        override fun getEncodedAuthority(): String? = "com.shieldher.test"
-        override fun getEncodedUserInfo(): String? = null
-        override fun getUserInfo(): String? = null
-        override fun getHost(): String? = "com.shieldher.test"
-        override fun getPort(): Int = -1
-        override fun buildUpon(): Builder = throw UnsupportedOperationException()
+    companion object {
+        /**
+         * Allocates an android.net.Uri instance without calling the stubbed SDK constructor.
+         * Safe in pure JVM unit tests.
+         */
+        private fun createTestUri(): Uri {
+            val unsafeField = Unsafe::class.java.getDeclaredField("theUnsafe")
+            unsafeField.isAccessible = true
+            val unsafe = unsafeField.get(null) as Unsafe
+            val stringUriClass = Class.forName("android.net.Uri\$StringUri")
+            val rawInstance = unsafe.allocateInstance(stringUriClass)
+            return rawInstance as Uri
+        }
     }
 
     @Test
@@ -67,7 +60,7 @@ class FakeEvidenceGatewayTest {
 
     @Test
     fun importFromUri_addsItemAndReturnsSuccess() = runTest {
-        val testUri = TestUri("content://com.shieldher.test/item/1")
+        val testUri = createTestUri()
         val outcome = gateway.importFromUri(testUri, "image/png")
         assertTrue(outcome is ImportOutcome.Success)
         val newId = (outcome as ImportOutcome.Success).id
