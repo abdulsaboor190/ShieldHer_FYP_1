@@ -3,6 +3,8 @@ package com.shieldher.dashboard.home
 import com.shieldher.dashboard.common.BadgeStatus
 import com.shieldher.dashboard.common.UiState
 import com.shieldher.dashboard.data.Case
+import com.shieldher.dashboard.data.CaseItem
+import com.shieldher.dashboard.data.CaseRepository
 import com.shieldher.dashboard.data.EvidenceIntegrity
 import com.shieldher.dashboard.data.EvidenceItem
 import com.shieldher.dashboard.data.VerificationRecord
@@ -11,9 +13,11 @@ import com.shieldher.dashboard.data.fake.FakeCaseRepository
 import com.shieldher.dashboard.data.fake.FakeEvidenceGateway
 import com.shieldher.dashboard.testing.MainDispatcherRule
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -35,7 +39,7 @@ class HomeViewModelTest {
         val viewModel = HomeViewModel(gateway, cases, session)
 
         val states = mutableListOf<UiState<HomeContent>>()
-        val job = kotlinx.coroutines.launch(mainDispatcherRule.testDispatcher) {
+        val job = launch(mainDispatcherRule.testDispatcher) {
             viewModel.uiState.toList(states)
         }
 
@@ -60,7 +64,7 @@ class HomeViewModelTest {
         val viewModel = HomeViewModel(gateway, cases, session)
 
         val states = mutableListOf<UiState<HomeContent>>()
-        val job = kotlinx.coroutines.launch(mainDispatcherRule.testDispatcher) {
+        val job = launch(mainDispatcherRule.testDispatcher) {
             viewModel.uiState.toList(states)
         }
 
@@ -80,7 +84,7 @@ class HomeViewModelTest {
         val viewModel = HomeViewModel(gateway, cases, session)
 
         val states = mutableListOf<UiState<HomeContent>>()
-        val job = kotlinx.coroutines.launch(mainDispatcherRule.testDispatcher) {
+        val job = launch(mainDispatcherRule.testDispatcher) {
             viewModel.uiState.toList(states)
         }
 
@@ -107,7 +111,7 @@ class HomeViewModelTest {
         val viewModel = HomeViewModel(gateway, cases, session)
 
         val states = mutableListOf<UiState<HomeContent>>()
-        val job = kotlinx.coroutines.launch(mainDispatcherRule.testDispatcher) {
+        val job = launch(mainDispatcherRule.testDispatcher) {
             viewModel.uiState.toList(states)
         }
 
@@ -124,16 +128,26 @@ class HomeViewModelTest {
     fun uiState_handlesUnreadableCaseRepositoryGracefully() = runTest {
         val gateway = FakeEvidenceGateway()
         val session = VerificationSession()
-        val failingCases = object : FakeCaseRepository() {
+        val failingCases = object : CaseRepository {
             override fun observeCases(): Flow<List<Case>> = flow {
                 throw RuntimeException("Store unreadable")
             }
+            override fun observeItems(caseId: String): Flow<List<CaseItem>> = MutableStateFlow(emptyList())
+            override suspend fun createCase(title: String, description: String): Case = throw UnsupportedOperationException()
+            override suspend fun renameCase(caseId: String, title: String) {}
+            override suspend fun deleteCase(caseId: String) {}
+            override suspend fun addEvidenceItem(caseId: String, evidenceId: String, note: String, incidentDateMillis: Long?): CaseItem = throw UnsupportedOperationException()
+            override suspend fun addNoteItem(caseId: String, note: String, incidentDateMillis: Long?): CaseItem = throw UnsupportedOperationException()
+            override suspend fun updateItem(itemId: String, note: String, incidentDateMillis: Long?) {}
+            override suspend fun removeItem(itemId: String) {}
+            override suspend fun casesForEvidence(evidenceId: String): List<Case> = emptyList()
+            override suspend fun deleteEverything() {}
         }
 
         val viewModel = HomeViewModel(gateway, failingCases, session)
 
         val states = mutableListOf<UiState<HomeContent>>()
-        val job = kotlinx.coroutines.launch(mainDispatcherRule.testDispatcher) {
+        val job = launch(mainDispatcherRule.testDispatcher) {
             viewModel.uiState.toList(states)
         }
 
