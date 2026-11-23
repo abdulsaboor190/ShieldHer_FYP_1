@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Evidence List Screen Strings -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="evidence_list_search_hint">Search by source or date</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="evidence_list_action_import">Import</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="evidence_list_empty_message">No evidence saved on this phone yet.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="evidence_list_no_matches_message">No items match your search.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="evidence_list_action_clear_search">Clear search</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="evidence_list_error_message">Could not load saved evidence.</string>
+</resources>
