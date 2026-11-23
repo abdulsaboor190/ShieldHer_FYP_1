@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/sh_space_16"
+    android:paddingEnd="@dimen/sh_space_16"
+    android:paddingTop="@dimen/sh_space_4"
+    android:paddingBottom="@dimen/sh_space_4">
+
+    <com.shieldher.dashboard.common.EvidenceCardView
+        android:id="@+id/evidence_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>
