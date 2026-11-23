@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="home_heading">ShieldHer</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="home_welcome">Keep your records organized and intact.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="home_stat_evidence_label">Saved evidence</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="home_stat_cases_label">Active cases</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="home_stat_cases_unavailable">Unavailable</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="home_section_latest_evidence">Latest evidence</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="home_action_see_all">See all</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="home_action_import">Import evidence</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="home_empty_message">No evidence items recorded yet.</string>
+</resources>
