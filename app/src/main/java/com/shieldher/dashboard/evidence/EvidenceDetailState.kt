@@ -2,6 +2,7 @@ package com.shieldher.dashboard.evidence
 
 import android.graphics.Bitmap
 import com.shieldher.dashboard.common.BadgeStatus
+import com.shieldher.dashboard.data.Case
 import com.shieldher.dashboard.data.EvidenceItem
 
 sealed interface PreviewState {
@@ -11,6 +12,12 @@ sealed interface PreviewState {
     data object TooLarge : PreviewState
     data object Unsupported : PreviewState
     data object Unavailable : PreviewState
+}
+
+sealed interface LinkedCasesState {
+    data object Loading : LinkedCasesState
+    data class Content(val cases: List<Case>) : LinkedCasesState
+    data object Unreadable : LinkedCasesState
 }
 
 data class VerificationUiState(
@@ -23,5 +30,6 @@ data class EvidenceDetailContent(
     val item: EvidenceItem,
     val formattedReceivedTime: String,
     val previewState: PreviewState,
-    val verificationState: VerificationUiState
+    val verificationState: VerificationUiState,
+    val linkedCasesState: LinkedCasesState
 )
