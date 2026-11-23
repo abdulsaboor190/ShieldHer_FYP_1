@@ -30,7 +30,10 @@ object ServiceLocator {
 
     val verificationSession: VerificationSession = VerificationSession()
 
+    private var fakesInstalled = false
+
     fun init(context: Context) {
+        if (fakesInstalled) return
         val appContext = context.applicationContext
         val vaultRepo = EvidenceRepository(appContext)
         _evidenceGateway = VaultEvidenceGateway(vaultRepo)
@@ -41,6 +44,7 @@ object ServiceLocator {
     }
 
     fun installFakes() {
+        fakesInstalled = true
         _evidenceGateway = FakeEvidenceGateway()
         _caseRepository = FakeCaseRepository()
         verificationSession.clear()
