@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_not_found">This evidence item is no longer on this phone.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_hash_label">SHA-256 hash</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_copy_hash">Copy</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_hash_copied">Hash copied to clipboard</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_source_label">Source</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_type_label">File type</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_stored_size_label">Stored size (encrypted)</string>
+
+    <!-- Preview strings -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_preview_heading">Preview</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_preview_image_desc">Preview of saved evidence image</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_preview_too_large">This file is too large for an in-app preview.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_preview_unsupported">A preview is not available for this file type.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_preview_unavailable">Preview is currently unavailable.</string>
+
+    <!-- Verify strings -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_action_verify">Verify</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_checked_time_prefix">Checked %1$s</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_meaning_toggle">What does this mean?</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_changed_explanation">The file on disk differs from what was initially saved, or could not be read.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="detail_missing_explanation">The file could not be found in storage.</string>
+</resources>
