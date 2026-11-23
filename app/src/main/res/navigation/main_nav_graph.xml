@@ -5,6 +5,7 @@
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/home">
 
+    <!-- Top-level bottom navigation destinations -->
     <fragment
         android:id="@+id/home"
         android:name="com.shieldher.dashboard.home.HomeFragment"
@@ -27,6 +28,49 @@
         android:id="@+id/more"
         android:name="com.shieldher.dashboard.settings.MoreFragment"
         android:label="@string/nav_more"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <!-- Additional screen destinations -->
+    <fragment
+        android:id="@+id/evidenceDetailFragment"
+        android:name="com.shieldher.dashboard.evidence.EvidenceDetailFragment"
+        android:label="@string/title_evidence_detail"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/importFragment"
+        android:name="com.shieldher.dashboard.evidence.ImportFragment"
+        android:label="@string/title_import"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/caseTimelineFragment"
+        android:name="com.shieldher.dashboard.cases.CaseTimelineFragment"
+        android:label="@string/title_case_timeline"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.shieldher.dashboard.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/limitsFragment"
+        android:name="com.shieldher.dashboard.settings.WhatCannotProveFragment"
+        android:label="@string/title_limits"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/accountCheckFragment"
+        android:name="com.shieldher.dashboard.check.AccountCheckFragment"
+        android:label="@string/title_account_check"
+        tools:layout="@layout/fragment_placeholder" />
+
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.shieldher.dashboard.onboarding.OnboardingFragment"
+        android:label="@string/title_onboarding"
         tools:layout="@layout/fragment_placeholder" />
 
 </navigation>

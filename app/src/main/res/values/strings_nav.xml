@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="title_evidence_detail">Evidence</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="title_import">Import evidence</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="title_case_timeline">Case</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="title_settings">Settings and privacy</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="title_limits">What ShieldHer cannot prove</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="title_account_check">Account Check</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="title_onboarding">Welcome</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="title_welcome_guide">Welcome guide</string>
+
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="type_image">Image</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="type_text">Text</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="type_document">Document</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="type_file">File</string>
+</resources>
