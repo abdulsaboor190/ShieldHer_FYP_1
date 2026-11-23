@@ -154,13 +154,13 @@
                         android:layout_marginTop="@dimen/sh_space_8"
                         android:visibility="gone" />
 
-                    <!-- Expandable "What does this mean?" for UNCHANGED -->
+                    <!-- Expandable 'What does this mean?' -->
                     <LinearLayout
                         android:id="@+id/layout_meaning"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/sh_space_8"
                         android:orientation="vertical"
+                        android:layout_marginTop="@dimen/sh_space_8"
                         android:visibility="gone">
 
                         <TextView
@@ -168,14 +168,16 @@
                             style="@style/ShieldHer.TextAppearance.BodySmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/sh_primary"
+                            android:text="@string/detail_meaning_toggle"
                             android:minHeight="@dimen/sh_touch_min"
                             android:gravity="center_vertical"
-                            android:textColor="@color/sh_primary"
-                            android:text="@string/detail_meaning_toggle" />
+                            android:clickable="true"
+                            android:focusable="true" />
 
                         <TextView
                             android:id="@+id/text_meaning_body"
-                            style="@style/ShieldHer.TextAppearance.BodySmall"
+                            style="@style/ShieldHer.TextAppearance.Caption"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/sh_space_4"
@@ -183,11 +185,11 @@
                             android:visibility="gone" />
                     </LinearLayout>
 
-                    <!-- Verify Button with progress -->
+                    <!-- Verify Button & Progress -->
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/sh_space_16">
+                        android:layout_marginTop="@dimen/sh_space_12">
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/button_verify"
@@ -226,35 +228,43 @@
                     android:orientation="vertical"
                     android:padding="@dimen/sh_space_16">
 
-                    <!-- Row 1: SHA-256 Hash -->
-                    <TextView
-                        style="@style/ShieldHer.TextAppearance.Caption"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/detail_hash_label" />
-
+                    <!-- Row 1: Full SHA-256 Hash with Copy -->
                     <LinearLayout
                         android:id="@+id/row_hash"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/sh_space_4"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/ShieldHer.TextAppearance.Caption"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/detail_hash_label" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/button_copy_hash"
+                                style="@style/Widget.Material3.Button.TextButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/sh_touch_min"
+                                android:text="@string/detail_copy_hash"
+                                android:textColor="@color/sh_primary" />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/text_hash_value"
                             style="@style/ShieldHer.TextAppearance.BodySmall"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/button_copy_hash"
-                            style="@style/ShieldHer.Button.Secondary"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/sh_space_8"
-                            android:text="@string/detail_copy_hash" />
+                            android:layout_marginTop="@dimen/sh_space_4"
+                            android:textIsSelectable="true" />
                     </LinearLayout>
 
                     <View
@@ -264,7 +274,7 @@
                         android:layout_marginBottom="@dimen/sh_space_8"
                         android:background="@color/sh_outline" />
 
-                    <!-- Row 2: Received Time -->
+                    <!-- Row 2: Received time + Wording Block 2 -->
                     <LinearLayout
                         android:id="@+id/row_received_time"
                         android:layout_width="match_parent"
@@ -379,19 +389,83 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Container for Linked Cases (P4-3 placeholder) -->
-            <FrameLayout
-                android:id="@+id/container_linked_cases"
+            <!-- Section 4: Linked Cases Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_linked_cases"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/sh_space_16" />
+                android:layout_marginTop="@dimen/sh_space_16"
+                app:cardBackgroundColor="@color/sh_card"
+                app:cardCornerRadius="@dimen/sh_radius_card"
+                app:strokeColor="@color/sh_outline"
+                app:strokeWidth="@dimen/sh_stroke_thin">
 
-            <!-- Container for Actions: Add to case, Delete (P4-3 placeholder) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/sh_space_16">
+
+                    <TextView
+                        style="@style/ShieldHer.TextAppearance.Heading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_linked_cases_heading" />
+
+                    <!-- Cases list container -->
+                    <LinearLayout
+                        android:id="@+id/container_cases_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sh_space_8"
+                        android:orientation="vertical" />
+
+                    <!-- Empty text -->
+                    <TextView
+                        android:id="@+id/text_no_linked_cases"
+                        style="@style/ShieldHer.TextAppearance.BodySmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sh_space_8"
+                        android:text="@string/detail_no_linked_cases"
+                        android:visibility="gone" />
+
+                    <!-- Unreadable / error text -->
+                    <TextView
+                        android:id="@+id/text_cases_unreadable"
+                        style="@style/ShieldHer.TextAppearance.BodySmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sh_space_8"
+                        android:text="@string/detail_cases_unreadable"
+                        android:visibility="gone" />
+
+                    <!-- Add to case action button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_add_to_case"
+                        style="@style/ShieldHer.Button.Secondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sh_space_12"
+                        android:text="@string/detail_action_add_to_case" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Section 5: Destructive Actions -->
             <FrameLayout
                 android:id="@+id/container_detail_actions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/sh_space_16" />
+                android:layout_marginTop="@dimen/sh_space_16">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_delete_evidence"
+                    style="@style/ShieldHer.Button.Destructive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_action_delete" />
+            </FrameLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

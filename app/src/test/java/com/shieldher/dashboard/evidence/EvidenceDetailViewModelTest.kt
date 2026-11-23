@@ -1,18 +1,24 @@
 package com.shieldher.dashboard.evidence
 
 import android.graphics.Bitmap
+import com.shieldher.dashboard.cases.CaseStoreException
 import com.shieldher.dashboard.common.BadgeStatus
 import com.shieldher.dashboard.common.UiState
+import com.shieldher.dashboard.data.Case
+import com.shieldher.dashboard.data.CaseItem
+import com.shieldher.dashboard.data.CaseRepository
 import com.shieldher.dashboard.data.DisplayContent
 import com.shieldher.dashboard.data.EvidenceGateway
 import com.shieldher.dashboard.data.EvidenceIntegrity
 import com.shieldher.dashboard.data.EvidenceItem
 import com.shieldher.dashboard.data.ImportOutcome
 import com.shieldher.dashboard.data.VerificationSession
+import com.shieldher.dashboard.data.fake.FakeCaseRepository
 import com.shieldher.dashboard.data.fake.FakeEvidenceGateway
 import com.shieldher.dashboard.testing.MainDispatcherRule
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
@@ -31,9 +37,10 @@ class EvidenceDetailViewModelTest {
     @Test
     fun itemLoads_andMissingIdGivesErrorState() = runTest {
         val gateway = FakeEvidenceGateway()
+        val caseRepo = FakeCaseRepository()
         val session = VerificationSession()
 
-        val viewModel = EvidenceDetailViewModel("non-existent-id", gateway, session)
+        val viewModel = EvidenceDetailViewModel("non-existent-id", gateway, caseRepo, session)
 
         val states = mutableListOf<UiState<EvidenceDetailContent>>()
         val job = launch(mainDispatcherRule.testDispatcher) {
@@ -51,10 +58,11 @@ class EvidenceDetailViewModelTest {
     @Test
     fun existingSessionRecord_isShownOnOpen() = runTest {
         val gateway = FakeEvidenceGateway()
+        val caseRepo = FakeCaseRepository()
         val session = VerificationSession()
         session.record("synth-evidence-1", EvidenceIntegrity.CHANGED, 1794500000000L)
 
-        val viewModel = EvidenceDetailViewModel("synth-evidence-1", gateway, session)
+        val viewModel = EvidenceDetailViewModel("synth-evidence-1", gateway, caseRepo, session)
 
         val states = mutableListOf<UiState<EvidenceDetailContent>>()
         val job = launch(mainDispatcherRule.testDispatcher) {
@@ -62,7 +70,7 @@ class EvidenceDetailViewModelTest {
         }
         testScheduler.advanceUntilIdle()
 
-        val content = states.filterIsInstance<UiState<EvidenceDetailContent>>().last().data
+        val content = states.filterIsInstance<UiState.Content<EvidenceDetailContent>>().last().data
         assertEquals(BadgeStatus.CHANGED, content.verificationState.status)
         assertNotNull(content.verificationState.checkedAtText)
 
@@ -72,10 +80,11 @@ class EvidenceDetailViewModelTest {
     @Test
     fun verify_recordsRightResultInSession_forAllThreeOutcomes() = runTest {
         val gateway = FakeEvidenceGateway()
+        val caseRepo = FakeCaseRepository()
 
         // 1. Unchanged (synth-evidence-1)
         val session1 = VerificationSession()
-        val vm1 = EvidenceDetailViewModel("synth-evidence-1", gateway, session1)
+        val vm1 = EvidenceDetailViewModel("synth-evidence-1", gateway, caseRepo, session1)
         testScheduler.advanceUntilIdle()
         vm1.verify()
         testScheduler.advanceUntilIdle()
@@ -83,7 +92,7 @@ class EvidenceDetailViewModelTest {
 
         // 2. Changed (synth-evidence-2)
         val session2 = VerificationSession()
-        val vm2 = EvidenceDetailViewModel("synth-evidence-2", gateway, session2)
+        val vm2 = EvidenceDetailViewModel("synth-evidence-2", gateway, caseRepo, session2)
         testScheduler.advanceUntilIdle()
         vm2.verify()
         testScheduler.advanceUntilIdle()
@@ -91,7 +100,7 @@ class EvidenceDetailViewModelTest {
 
         // 3. Missing (synth-evidence-5)
         val session3 = VerificationSession()
-        val vm3 = EvidenceDetailViewModel("synth-evidence-5", gateway, session3)
+        val vm3 = EvidenceDetailViewModel("synth-evidence-5", gateway, caseRepo, session3)
         testScheduler.advanceUntilIdle()
         vm3.verify()
         testScheduler.advanceUntilIdle()
@@ -101,17 +110,18 @@ class EvidenceDetailViewModelTest {
     @Test
     fun readForDisplay_mapsToEachPreviewState() = runTest {
         val session = VerificationSession()
+        val caseRepo = FakeCaseRepository()
 
         // Text item: synth-evidence-2 has text/plain in FakeEvidenceGateway
         val gateway = FakeEvidenceGateway()
-        val vmText = EvidenceDetailViewModel("synth-evidence-2", gateway, session)
+        val vmText = EvidenceDetailViewModel("synth-evidence-2", gateway, caseRepo, session)
 
         val textStates = mutableListOf<UiState<EvidenceDetailContent>>()
         val jobText = launch(mainDispatcherRule.testDispatcher) {
             vmText.uiState.toList(textStates)
         }
         testScheduler.advanceUntilIdle()
-        val contentText = textStates.filterIsInstance<UiState<EvidenceDetailContent>>().last().data
+        val contentText = textStates.filterIsInstance<UiState.Content<EvidenceDetailContent>>().last().data
         assertTrue(contentText.previewState is PreviewState.Text)
         jobText.cancel()
 
@@ -138,27 +148,27 @@ class EvidenceDetailViewModelTest {
         }
 
         customGateway.displayResponse = DisplayContent.TooLarge
-        val vmTooLarge = EvidenceDetailViewModel("any-id", customGateway, session)
+        val vmTooLarge = EvidenceDetailViewModel("any-id", customGateway, caseRepo, session)
         val s1 = mutableListOf<UiState<EvidenceDetailContent>>()
         val j1 = launch(mainDispatcherRule.testDispatcher) { vmTooLarge.uiState.toList(s1) }
         testScheduler.advanceUntilIdle()
-        assertTrue(s1.filterIsInstance<UiState<EvidenceDetailContent>>().last().data.previewState is PreviewState.TooLarge)
+        assertTrue(s1.filterIsInstance<UiState.Content<EvidenceDetailContent>>().last().data.previewState is PreviewState.TooLarge)
         j1.cancel()
 
         customGateway.displayResponse = DisplayContent.Unsupported
-        val vmUnsupported = EvidenceDetailViewModel("any-id", customGateway, session)
+        val vmUnsupported = EvidenceDetailViewModel("any-id", customGateway, caseRepo, session)
         val s2 = mutableListOf<UiState<EvidenceDetailContent>>()
         val j2 = launch(mainDispatcherRule.testDispatcher) { vmUnsupported.uiState.toList(s2) }
         testScheduler.advanceUntilIdle()
-        assertTrue(s2.filterIsInstance<UiState<EvidenceDetailContent>>().last().data.previewState is PreviewState.Unsupported)
+        assertTrue(s2.filterIsInstance<UiState.Content<EvidenceDetailContent>>().last().data.previewState is PreviewState.Unsupported)
         j2.cancel()
 
         customGateway.displayResponse = DisplayContent.Unavailable
-        val vmUnavailable = EvidenceDetailViewModel("any-id", customGateway, session)
+        val vmUnavailable = EvidenceDetailViewModel("any-id", customGateway, caseRepo, session)
         val s3 = mutableListOf<UiState<EvidenceDetailContent>>()
         val j3 = launch(mainDispatcherRule.testDispatcher) { vmUnavailable.uiState.toList(s3) }
         testScheduler.advanceUntilIdle()
-        assertTrue(s3.filterIsInstance<UiState<EvidenceDetailContent>>().last().data.previewState is PreviewState.Unavailable)
+        assertTrue(s3.filterIsInstance<UiState.Content<EvidenceDetailContent>>().last().data.previewState is PreviewState.Unavailable)
         j3.cancel()
     }
 
@@ -187,11 +197,124 @@ class EvidenceDetailViewModelTest {
             override suspend fun deleteAll(): Int = 0
         }
 
+        val caseRepo = FakeCaseRepository()
         val session = VerificationSession()
-        val viewModel = EvidenceDetailViewModel("any-id", customGateway, session)
+        val viewModel = EvidenceDetailViewModel("any-id", customGateway, caseRepo, session)
         testScheduler.advanceUntilIdle()
 
         assertFalse("Verify should not be called automatically on load", verifyCalled)
         assertEquals(BadgeStatus.NOT_CHECKED, (viewModel.uiState.value as UiState.Content).data.verificationState.status)
+    }
+
+    @Test
+    fun linkedCases_listedForRightEvidenceId() = runTest {
+        val gateway = FakeEvidenceGateway()
+        val caseRepo = FakeCaseRepository()
+        val session = VerificationSession()
+
+        // synth-evidence-1 belongs to synth-case-1 in FakeCaseRepository
+        val viewModel = EvidenceDetailViewModel("synth-evidence-1", gateway, caseRepo, session)
+        testScheduler.advanceUntilIdle()
+
+        val content = (viewModel.uiState.value as UiState.Content).data
+        val linked = content.linkedCasesState as LinkedCasesState.Content
+        assertEquals(1, linked.cases.size)
+        assertEquals("synth-case-1", linked.cases[0].id)
+
+        // synth-evidence-2 has no linked cases initially
+        val vm2 = EvidenceDetailViewModel("synth-evidence-2", gateway, caseRepo, session)
+        testScheduler.advanceUntilIdle()
+        val content2 = (vm2.uiState.value as UiState.Content).data
+        val linked2 = content2.linkedCasesState as LinkedCasesState.Content
+        assertTrue(linked2.cases.isEmpty())
+    }
+
+    @Test
+    fun addToCase_createsItemInCaseRepository_andRefreshesLinkedCases() = runTest {
+        val gateway = FakeEvidenceGateway()
+        val caseRepo = FakeCaseRepository()
+        val session = VerificationSession()
+
+        val viewModel = EvidenceDetailViewModel("synth-evidence-2", gateway, caseRepo, session)
+        testScheduler.advanceUntilIdle()
+
+        // Initially 0 linked cases
+        var content = (viewModel.uiState.value as UiState.Content).data
+        assertEquals(0, (content.linkedCasesState as LinkedCasesState.Content).cases.size)
+
+        // Add to synth-case-2
+        val dateMillis = 1794500000000L
+        viewModel.addToCase("synth-case-2", "Test note", dateMillis)
+        testScheduler.advanceUntilIdle()
+
+        // Verify caseRepo has the item
+        val items = caseRepo.observeItems("synth-case-2").first()
+        val addedItem = items.find { it.evidenceId == "synth-evidence-2" }
+        assertNotNull(addedItem)
+        assertEquals("Test note", addedItem?.note)
+        assertEquals(dateMillis, addedItem?.incidentDateMillis)
+
+        // Verify linkedCasesState refreshed
+        content = (viewModel.uiState.value as UiState.Content).data
+        val linked = content.linkedCasesState as LinkedCasesState.Content
+        assertEquals(1, linked.cases.size)
+        assertEquals("synth-case-2", linked.cases[0].id)
+    }
+
+    @Test
+    fun deleteEvidence_removesFromGateway_andDoesNotTouchCaseRepository() = runTest {
+        val gateway = FakeEvidenceGateway()
+        val caseRepo = FakeCaseRepository()
+        val session = VerificationSession()
+
+        // synth-evidence-1 is in synth-case-1
+        val viewModel = EvidenceDetailViewModel("synth-evidence-1", gateway, caseRepo, session)
+        testScheduler.advanceUntilIdle()
+
+        val deleteEvents = mutableListOf<Boolean>()
+        val job = launch(mainDispatcherRule.testDispatcher) {
+            viewModel.deleteEvent.toList(deleteEvents)
+        }
+
+        viewModel.deleteEvidence()
+        testScheduler.advanceUntilIdle()
+
+        assertTrue(deleteEvents.isNotEmpty() && deleteEvents.last())
+
+        // Gateway should no longer have synth-evidence-1
+        val itemInGateway = gateway.getEvidence("synth-evidence-1")
+        assertEquals(null, itemInGateway)
+
+        // Case repo items for synth-case-1 must still have the item referencing synth-evidence-1
+        val caseItems = caseRepo.observeItems("synth-case-1").first()
+        val stillExists = caseItems.any { it.evidenceId == "synth-evidence-1" }
+        assertTrue("Case item must still exist after evidence deletion", stillExists)
+
+        job.cancel()
+    }
+
+    @Test
+    fun caseStoreException_leadsToUnreadableState() = runTest {
+        val gateway = FakeEvidenceGateway()
+        val brokenRepo = object : CaseRepository {
+            override fun observeCases(): Flow<List<Case>> = MutableStateFlow(emptyList())
+            override fun observeItems(caseId: String): Flow<List<CaseItem>> = MutableStateFlow(emptyList())
+            override suspend fun createCase(title: String, description: String): Case = throw CaseStoreException(CaseStoreException.Reason.UNREADABLE)
+            override suspend fun renameCase(caseId: String, title: String) = throw CaseStoreException(CaseStoreException.Reason.UNREADABLE)
+            override suspend fun deleteCase(caseId: String) = throw CaseStoreException(CaseStoreException.Reason.UNREADABLE)
+            override suspend fun addEvidenceItem(caseId: String, evidenceId: String, note: String, incidentDateMillis: Long?): CaseItem = throw CaseStoreException(CaseStoreException.Reason.UNREADABLE)
+            override suspend fun addNoteItem(caseId: String, note: String, incidentDateMillis: Long?): CaseItem = throw CaseStoreException(CaseStoreException.Reason.UNREADABLE)
+            override suspend fun updateItem(itemId: String, note: String, incidentDateMillis: Long?) = throw CaseStoreException(CaseStoreException.Reason.UNREADABLE)
+            override suspend fun removeItem(itemId: String) = throw CaseStoreException(CaseStoreException.Reason.UNREADABLE)
+            override suspend fun casesForEvidence(evidenceId: String): List<Case> = throw CaseStoreException(CaseStoreException.Reason.UNREADABLE)
+            override suspend fun deleteEverything() = throw CaseStoreException(CaseStoreException.Reason.UNREADABLE)
+        }
+        val session = VerificationSession()
+
+        val viewModel = EvidenceDetailViewModel("synth-evidence-1", gateway, brokenRepo, session)
+        testScheduler.advanceUntilIdle()
+
+        val content = (viewModel.uiState.value as UiState.Content).data
+        assertEquals(LinkedCasesState.Unreadable, content.linkedCasesState)
     }
 }
