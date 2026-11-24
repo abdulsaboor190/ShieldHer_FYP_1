@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="account_check_preview_banner_explanation">This feature is in development and will be available in the next version.</string>
+
+    <!-- Form labels -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="account_check_platform_label">Platform</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="account_check_platform_instagram">Instagram</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="account_check_platform_x">X (Twitter)</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="account_check_platform_other">Other</string>
+
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="account_check_followers_label">Follower count</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="account_check_following_label">Following count</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="account_check_bio_label">Profile bio text</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="account_check_has_link_label">Profile includes a link</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="account_check_run_button">Run check</string>
+</resources>

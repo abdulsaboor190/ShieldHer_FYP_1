@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/account_check_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/sh_space_16"
+        android:paddingBottom="@dimen/sh_space_32">
+
+        <!-- Top status preview badge -->
+        <com.shieldher.dashboard.common.StatusBadge
+            android:id="@+id/badge_account_check_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_8" />
+
+        <!-- Preview banner explanation -->
+        <TextView
+            android:id="@+id/text_preview_explanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_24"
+            android:text="@string/account_check_preview_banner_explanation"
+            android:textAppearance="@style/ShieldHer.TextAppearance.BodySmall"
+            android:textColor="@color/sh_text_secondary" />
+
+        <!-- Platform selector -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_8"
+            android:text="@string/account_check_platform_label"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Heading" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_platform"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_16"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_instagram"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:saveEnabled="false"
+                android:text="@string/account_check_platform_instagram" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_x"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:saveEnabled="false"
+                android:text="@string/account_check_platform_x" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_other"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:saveEnabled="false"
+                android:text="@string/account_check_platform_other" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Followers input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_followers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_16"
+            android:hint="@string/account_check_followers_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_followers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:saveEnabled="false" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Following input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_following"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_16"
+            android:hint="@string/account_check_following_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_following"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:saveEnabled="false" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Bio text input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_16"
+            android:hint="@string/account_check_bio_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:minLines="3"
+                android:saveEnabled="false" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Profile includes link switch -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_24"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/account_check_has_link_label"
+                android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_has_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sh_space_16"
+                android:saveEnabled="false" />
+
+        </LinearLayout>
+
+        <!-- Run check button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_run_check"
+            style="@style/ShieldHer.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_16"
+            android:text="@string/account_check_run_button" />
+
+        <!-- Coming soon message shown inline when button tapped -->
+        <TextView
+            android:id="@+id/text_coming_soon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/sh_space_16"
+            android:text="@string/account_check_coming_soon"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Heading"
+            android:textColor="@color/sh_text_secondary"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+</ScrollView>
