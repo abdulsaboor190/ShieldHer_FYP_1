@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cases list screen strings -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="cases_list_action_new">New case</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="cases_list_empty_message">No cases created yet.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="cases_list_error_message">Could not load cases.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="cases_list_unreadable_store">The case notes cannot be read on this phone.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="case_options_description">Case options</string>
+
+    <!-- Dialog: New case -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_new_case_title">New case</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_new_case_input_title">Case title</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_new_case_input_description">Description (optional)</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_new_case_create">Create</string>
+
+    <!-- Dialog: Rename case -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_rename_case_title">Rename case</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_rename_case_save">Save</string>
+
+    <!-- Row actions -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="case_action_rename">Rename</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="case_action_delete">Delete</string>
+
+    <!-- Dialog: Delete case -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_delete_case_title">Delete this case?</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_delete_case_message">This removes the case and its notes from this phone. The evidence in the case is kept.</string>
+</resources>
