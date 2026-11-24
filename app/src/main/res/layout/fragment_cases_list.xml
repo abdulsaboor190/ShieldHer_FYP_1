@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Header bar with screen title & New Case button -->
+    <LinearLayout
+        android:id="@+id/cases_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/sh_space_16"
+        android:paddingTop="@dimen/sh_space_16"
+        android:paddingEnd="@dimen/sh_space_16"
+        android:paddingBottom="@dimen/sh_space_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_cases_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/nav_cases"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_new_case"
+            style="@style/ShieldHer.Button.Primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cases_list_action_new" />
+
+    </LinearLayout>
+
+    <!-- RecyclerView for content -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_cases"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/sh_space_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cases_header_layout"
+        tools:listitem="@layout/item_dashboard_case" />
+
+    <!-- Loading Indicator -->
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_loading"
+        style="@style/ShieldHer.Widget.LoadingIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cases_header_layout"
+        tools:visibility="visible" />
+
+    <!-- Empty State -->
+    <com.shieldher.dashboard.common.EmptyStateView
+        android:id="@+id/empty_state_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cases_header_layout"
+        tools:visibility="gone" />
+
+    <!-- Error State -->
+    <com.shieldher.dashboard.common.ErrorStateView
+        android:id="@+id/error_state_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cases_header_layout"
+        tools:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
