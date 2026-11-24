@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Timeline Screen Strings -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="timeline_action_add_evidence">Add evidence</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="timeline_action_add_note">Add note</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="timeline_empty_message">This case has no items yet.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="timeline_error_message">Could not load case items.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="timeline_unreadable_store">The case notes cannot be read on this phone.</string>
+
+    <!-- Labels for item timestamps -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="timeline_label_you_entered">You entered: %s</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="timeline_label_received">Received by ShieldHer: %s</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="timeline_label_added">Added: %s</string>
+
+    <!-- Item actions -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="timeline_action_edit">Edit</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="timeline_action_remove">Remove from case</string>
+
+    <!-- Remove confirmation dialog -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_remove_item_title">Remove from case?</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_remove_item_message">This removes the item from this case. The evidence itself stays on this phone.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_remove_item_confirm">Remove</string>
+
+    <!-- Add Evidence Dialog -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_add_evidence_title">Add evidence to case</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_add_evidence_select_label">Choose evidence</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_add_evidence_already_in_case">%s (already in case)</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_add_evidence_empty">No evidence saved on this phone.</string>
+
+    <!-- Add Note Dialog / Edit Item Dialog -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_add_note_title">Add note</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_edit_item_title">Edit note &amp; date</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_input_note_hint">Note</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_input_note_optional_hint">Note (optional)</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_input_date_hint">Date (optional)</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_action_pick_date">Select date</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_action_clear_date">Clear date</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_action_save">Save</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_action_add">Add</string>
+</resources>
