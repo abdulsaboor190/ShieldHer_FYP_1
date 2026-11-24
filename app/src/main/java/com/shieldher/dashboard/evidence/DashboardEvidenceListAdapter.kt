@@ -21,7 +21,7 @@ class DashboardEvidenceListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_dashboard_evidence, parent, false)
-        return ViewHolder(view.findViewById(R.id.evidence_card_view))
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -30,7 +30,9 @@ class DashboardEvidenceListAdapter(
         holder.cardView.setOnClickListener { onItemClick(item.id) }
     }
 
-    class ViewHolder(val cardView: EvidenceCardView) : RecyclerView.ViewHolder(cardView)
+    class ViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+        val cardView: EvidenceCardView = itemView.findViewById(R.id.evidence_card_view)
+    }
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DashboardEvidenceListItem>() {
