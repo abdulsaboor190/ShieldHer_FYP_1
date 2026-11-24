@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="import_heading">Import evidence</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="import_explanation">When you import a file, a copy is saved on this phone. Nothing is uploaded anywhere.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="import_reminder">Only import files you want to keep as evidence. You can delete them at any time from the evidence detail screen.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="import_choose_file">Choose a file</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="import_saving">Saving\u2026</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="import_saved">The file has been saved on this phone.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="import_view_evidence">View evidence</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="import_another">Import another file</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="import_too_large">That file is too large to save. Please choose a smaller file.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="import_unsupported">That file type is not supported. Please choose an image or a plain text file.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="import_failed">Nothing was saved. Please try again.</string>
+</resources>

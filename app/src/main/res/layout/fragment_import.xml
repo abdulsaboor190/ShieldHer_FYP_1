@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/import_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/sh_space_24">
+
+        <!-- Heading -->
+        <TextView
+            android:id="@+id/import_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_16"
+            android:text="@string/import_heading"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Title" />
+
+        <!-- Explanation -->
+        <TextView
+            android:id="@+id/import_explanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_8"
+            android:text="@string/import_explanation"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+        <!-- Calm reminder -->
+        <TextView
+            android:id="@+id/import_reminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_32"
+            android:text="@string/import_reminder"
+            android:textAppearance="@style/ShieldHer.TextAppearance.BodySmall"
+            android:textColor="@color/sh_text_secondary" />
+
+        <!-- Choose a file button (primary) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_choose_file"
+            style="@style/ShieldHer.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_24"
+            android:text="@string/import_choose_file" />
+
+        <!-- Saving progress indicator -->
+        <LinearLayout
+            android:id="@+id/layout_saving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/sh_space_16"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progress_saving"
+                style="@style/ShieldHer.Widget.LoadingIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/sh_space_16"
+                android:indeterminate="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/import_saving"
+                android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+        </LinearLayout>
+
+        <!-- Saved state -->
+        <LinearLayout
+            android:id="@+id/layout_saved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <TextView
+                android:id="@+id/text_saved"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sh_space_16"
+                android:text="@string/import_saved"
+                android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_view_evidence"
+                style="@style/ShieldHer.Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sh_space_8"
+                android:text="@string/import_view_evidence" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_import_another"
+                style="@style/ShieldHer.Button.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/import_another" />
+
+        </LinearLayout>
+
+        <!-- Too large message -->
+        <TextView
+            android:id="@+id/text_too_large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_16"
+            android:text="@string/import_too_large"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Body"
+            android:visibility="gone"
+            tools:visibility="gone" />
+
+        <!-- Unsupported type message -->
+        <TextView
+            android:id="@+id/text_unsupported"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sh_space_16"
+            android:text="@string/import_unsupported"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Body"
+            android:visibility="gone"
+            tools:visibility="gone" />
+
+        <!-- Failed message + retry -->
+        <LinearLayout
+            android:id="@+id/layout_failed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <TextView
+                android:id="@+id/text_failed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sh_space_16"
+                android:text="@string/import_failed"
+                android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_retry"
+                style="@style/ShieldHer.Button.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/import_choose_file" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
