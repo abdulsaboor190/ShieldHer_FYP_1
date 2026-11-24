@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_intro">Estimate how closely an account\'s public profile numbers resemble patterns in a research dataset. This is not a decision about the account or the person behind it.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_choose_platform">Choose the platform first.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_title_higher">Higher resemblance to the research patterns</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_title_lower">Lower resemblance to the research patterns</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_title_uncertain">Not enough confidence to say</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_title_unsupported">Missing or invalid numbers</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_title_not_validated">Not validated for this platform</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_title_unavailable">The check could not run</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_expl_higher">On these numbers, the account looks more like the higher-resemblance accounts in the research data. Treat this as a prompt to look more closely, not as a finding.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_expl_lower">On these numbers, the account looks more like the lower-resemblance accounts in the research data. This does not mean the account is trustworthy.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_expl_uncertain">The model is not confident enough to answer for these numbers, so it gives no estimate.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_expl_unsupported">Enter followers and following as whole numbers, 0 or more.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_expl_not_validated">This check was built on Instagram data. It has not been validated for this platform, so no estimate is shown.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_expl_unavailable">The check data could not be loaded on this phone.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_model_line">Frozen research model v1. Everything is worked out on this phone. Nothing you type is saved or sent.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_limits_heading">Limits of this check</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_limits_body">This is a research estimate from five public profile details. It was tested on one platform and is much less reliable on others. It can be wrong even when it sounds confident. It does not show who runs an account or what they have done, and it is not proof of anything.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_about_toggle">How well does this work?</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_about_body">On 118 Instagram accounts the model had not seen, it ranked accounts well (AUROC 0.97, where 1.0 is perfect and 0.5 is a coin toss). On a different platform it was much less reliable (AUROC 0.82), and it missed some account types completely, sometimes while sounding confident.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_button_run">Run check</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="risk_button_clear">Clear</string>
+</resources>
