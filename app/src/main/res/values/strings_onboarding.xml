@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common Onboarding Actions -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="onboarding_action_skip">Skip</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="onboarding_action_next">Next</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="onboarding_action_back">Back</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="onboarding_action_get_started">Get started</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="onboarding_page_indicator">%1$d of %2$d</string>
+
+    <!-- Page 1: What ShieldHer does -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="onboarding_page1_heading">Organise your evidence</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="onboarding_page1_body">ShieldHer saves evidence files directly on this phone. It checks that files have not changed since you saved them, and helps you keep items organised into cases.</string>
+
+    <!-- Page 2: What ShieldHer does NOT do -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="onboarding_page2_heading">Understand the limits</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="onboarding_page2_body">ShieldHer does not determine who created a file, when it was originally made, or whether it was edited before you saved it. It does not decide whether evidence can be used in a legal process.</string>
+
+    <!-- Page 3: Privacy -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="onboarding_page3_heading">Your data stays here</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="onboarding_page3_body">Everything you save remains on this phone and is never uploaded anywhere. Screenshot protection is enabled by default to prevent other apps or previews from capturing your screen.</string>
+</resources>

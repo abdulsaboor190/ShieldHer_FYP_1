@@ -52,6 +52,11 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNav.setupWithNavController(navController)
+
+        // First run navigation to onboarding
+        if (savedInstanceState == null && !appSettings.onboardingSeen) {
+            navController.navigate(R.id.onboardingFragment)
+        }
     }
 
     override fun onResume() {
