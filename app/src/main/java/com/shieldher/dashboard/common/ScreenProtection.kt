@@ -34,8 +34,13 @@ class AppSettings(context: Context) {
         get() = prefs.getBoolean(KEY_SCREENSHOT_PROTECTION, true)
         set(value) = prefs.edit().putBoolean(KEY_SCREENSHOT_PROTECTION, value).apply()
 
+    var onboardingSeen: Boolean
+        get() = prefs.getBoolean(KEY_ONBOARDING_SEEN, false)
+        set(value) = prefs.edit().putBoolean(KEY_ONBOARDING_SEEN, value).apply()
+
     companion object {
         private const val KEY_SCREENSHOT_PROTECTION = "screenshot_protection_enabled"
+        private const val KEY_ONBOARDING_SEEN = "onboarding_seen"
     }
 }
 
