@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/what_cannot_prove_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/sh_space_32">
+
+        <!-- 1. Meaning of unchanged -->
+        <com.shieldher.dashboard.common.SectionHeader
+            android:id="@+id/header_unchanged"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/limits_heading_unchanged" />
+
+        <TextView
+            android:id="@+id/text_unchanged_meaning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/sh_space_16"
+            android:paddingEnd="@dimen/sh_space_16"
+            android:paddingBottom="@dimen/sh_space_16"
+            android:text="@string/block_unchanged_meaning"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+        <!-- 2. Source of timestamps -->
+        <com.shieldher.dashboard.common.SectionHeader
+            android:id="@+id/header_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/limits_heading_time" />
+
+        <TextView
+            android:id="@+id/text_time_meaning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/sh_space_16"
+            android:paddingEnd="@dimen/sh_space_16"
+            android:paddingBottom="@dimen/sh_space_16"
+            android:text="@string/block_time"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+        <!-- 3. What ShieldHer does not decide -->
+        <com.shieldher.dashboard.common.SectionHeader
+            android:id="@+id/header_boundaries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/limits_heading_boundaries" />
+
+        <TextView
+            android:id="@+id/text_boundary_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/sh_space_16"
+            android:paddingEnd="@dimen/sh_space_16"
+            android:paddingBottom="@dimen/sh_space_8"
+            android:text="@string/limits_boundaries_author"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+        <TextView
+            android:id="@+id/text_boundary_legal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/sh_space_16"
+            android:paddingEnd="@dimen/sh_space_16"
+            android:paddingBottom="@dimen/sh_space_8"
+            android:text="@string/limits_boundaries_legal"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+        <TextView
+            android:id="@+id/text_boundary_accounts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/sh_space_16"
+            android:paddingEnd="@dimen/sh_space_16"
+            android:paddingBottom="@dimen/sh_space_16"
+            android:text="@string/limits_boundaries_accounts"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Section headers -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_section_saved_evidence">Saved evidence</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_section_screenshot">Screenshot protection</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_section_storage">Where your data is stored</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_section_backup">Backup and transfer</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_section_limits">What ShieldHer cannot prove</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_section_delete_all">Delete everything</string>
+
+    <!-- Content strings -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_evidence_count">%d items saved</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_screenshot_explanation">Prevents screenshots and app previews from capturing ShieldHer screens.</string>
+    <!-- Confirmed from docs/stage1_closeout.md: allowBackup=false, cloud-backup excluded on all versions, device-transfer excluded on Android 12+ -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_backup_confirmed_text">Cloud backup is excluded on all Android versions, and device-to-device transfer is excluded on Android 12 and newer.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_limits_row_subtitle">Learn what information ShieldHer can and cannot determine.</string>
+
+    <!-- Delete all dialog & messages -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_delete_all_title">Delete everything?</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_delete_all_message">This removes every saved item and every case note from this phone. It cannot be undone.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="dialog_delete_all_confirm">Delete everything</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_delete_all_success">All saved evidence and case notes have been deleted from this phone.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_delete_all_gateway_error">Could not remove some evidence files from this phone.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="settings_delete_all_case_error">Could not remove some case notes from this phone.</string>
+
+    <!-- What ShieldHer cannot prove page strings -->
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="limits_heading_unchanged">Meaning of unchanged</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="limits_heading_time">Source of timestamps</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="limits_heading_boundaries">What ShieldHer does not decide</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="limits_boundaries_author">ShieldHer does not determine who created a file or when it was first created.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="limits_boundaries_legal">ShieldHer does not decide whether an item can be used in a legal process.</string>
+    <!-- PROPOSED: needs Abdul's review -->
+    <string name="limits_boundaries_accounts">ShieldHer does not determine whether an online account is genuine.</string>
+</resources>

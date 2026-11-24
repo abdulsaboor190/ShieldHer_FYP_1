@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/sh_space_32">
+
+        <!-- 1. Saved evidence -->
+        <com.shieldher.dashboard.common.SectionHeader
+            android:id="@+id/header_saved_evidence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_saved_evidence" />
+
+        <TextView
+            android:id="@+id/text_evidence_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/sh_space_16"
+            android:paddingEnd="@dimen/sh_space_16"
+            android:paddingBottom="@dimen/sh_space_16"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Body"
+            tools:text="0 items saved" />
+
+        <!-- 2. Screenshot protection -->
+        <com.shieldher.dashboard.common.SectionHeader
+            android:id="@+id/header_screenshot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_screenshot" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/sh_space_16"
+            android:paddingEnd="@dimen/sh_space_16"
+            android:paddingBottom="@dimen/sh_space_8">
+
+            <TextView
+                android:id="@+id/text_screenshot_explanation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/settings_screenshot_explanation"
+                android:textAppearance="@style/ShieldHer.TextAppearance.BodySmall" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switch_screenshot_protection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sh_space_16" />
+
+        </LinearLayout>
+
+        <!-- 3. Where your data is stored -->
+        <com.shieldher.dashboard.common.SectionHeader
+            android:id="@+id/header_storage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_storage" />
+
+        <TextView
+            android:id="@+id/text_storage_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/sh_space_16"
+            android:paddingEnd="@dimen/sh_space_16"
+            android:paddingBottom="@dimen/sh_space_16"
+            android:text="@string/settings_storage_text"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+        <!-- 4. Backup and transfer (confirmed facts) -->
+        <com.shieldher.dashboard.common.SectionHeader
+            android:id="@+id/header_backup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_backup" />
+
+        <TextView
+            android:id="@+id/text_backup_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/sh_space_16"
+            android:paddingEnd="@dimen/sh_space_16"
+            android:paddingBottom="@dimen/sh_space_16"
+            android:text="@string/settings_backup_confirmed_text"
+            android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+        <!-- 5. What ShieldHer cannot prove -->
+        <com.shieldher.dashboard.common.SectionHeader
+            android:id="@+id/header_limits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_limits" />
+
+        <LinearLayout
+            android:id="@+id/row_limits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/sh_space_16"
+            android:paddingTop="@dimen/sh_space_8"
+            android:paddingEnd="@dimen/sh_space_16"
+            android:paddingBottom="@dimen/sh_space_16">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_limits"
+                android:textAppearance="@style/ShieldHer.TextAppearance.Body" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sh_space_4"
+                android:text="@string/settings_limits_row_subtitle"
+                android:textAppearance="@style/ShieldHer.TextAppearance.BodySmall" />
+
+        </LinearLayout>
+
+        <!-- 6. Delete everything -->
+        <com.shieldher.dashboard.common.SectionHeader
+            android:id="@+id/header_delete_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_delete_all" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/sh_space_16"
+            android:paddingEnd="@dimen/sh_space_16"
+            android:paddingTop="@dimen/sh_space_8">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delete_all"
+                style="@style/ShieldHer.Button.Destructive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_delete_all_confirm" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
