@@ -5,6 +5,7 @@ import com.shieldher.dashboard.cases.CaseStore
 import com.shieldher.dashboard.cases.DefaultCaseRepository
 import com.shieldher.dashboard.data.fake.FakeCaseRepository
 import com.shieldher.dashboard.data.fake.FakeEvidenceGateway
+import com.shieldher.dashboard.data.fake.FakeRiskChecker
 import com.shieldher.vault.data.EvidenceRepository
 import java.io.File
 
@@ -28,6 +29,13 @@ object ServiceLocator {
             _caseRepository = value
         }
 
+    private var _riskChecker: RiskChecker? = null
+    var riskChecker: RiskChecker
+        get() = _riskChecker ?: FakeRiskChecker().also { _riskChecker = it }
+        set(value) {
+            _riskChecker = value
+        }
+
     val verificationSession: VerificationSession = VerificationSession()
 
     private var fakesInstalled = false
@@ -41,12 +49,15 @@ object ServiceLocator {
         val casesDir = File(appContext.filesDir, "cases")
         val caseStore = CaseStore(appContext, casesDir)
         _caseRepository = DefaultCaseRepository(caseStore)
+
+        _riskChecker = com.shieldher.dashboard.check.risk.OnDeviceRiskChecker(appContext)
     }
 
     fun installFakes() {
         fakesInstalled = true
         _evidenceGateway = FakeEvidenceGateway()
         _caseRepository = FakeCaseRepository()
+        _riskChecker = FakeRiskChecker()
         verificationSession.clear()
     }
 }
