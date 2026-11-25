@@ -4,6 +4,8 @@ import com.shieldher.dashboard.data.Case
 import com.shieldher.dashboard.data.CaseItem
 import com.shieldher.dashboard.data.CaseRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.util.UUID
 
@@ -22,12 +24,24 @@ import java.util.UUID
  */
 class DefaultCaseRepository(private val store: CaseStore) : CaseRepository {
 
-    override fun observeCases(): Flow<List<Case>> = store.cases
+    override fun observeCases(): Flow<List<Case>> = flow {
+        store.ensureLoaded()
+        if (store.isUnreadable) {
+            throw CaseStoreException(CaseStoreException.Reason.UNREADABLE)
+        }
+        emitAll(store.cases)
+    }
 
-    override fun observeItems(caseId: String): Flow<List<CaseItem>> =
-        store.items.map { all -> all.filter { it.caseId == caseId } }
+    override fun observeItems(caseId: String): Flow<List<CaseItem>> = flow {
+        store.ensureLoaded()
+        if (store.isUnreadable) {
+            throw CaseStoreException(CaseStoreException.Reason.UNREADABLE)
+        }
+        emitAll(store.items.map { all -> all.filter { it.caseId == caseId } })
+    }
 
     override suspend fun createCase(title: String, description: String): Case {
+        store.ensureLoaded()
         val case = Case(
             id = UUID.randomUUID().toString(),
             title = title,
@@ -40,11 +54,13 @@ class DefaultCaseRepository(private val store: CaseStore) : CaseRepository {
     }
 
     override suspend fun renameCase(caseId: String, title: String) {
+        store.ensureLoaded()
         val newCases = store.cases.value.map { if (it.id == caseId) it.copy(title = title) else it }
         store.saveCases(newCases, store.items.value)
     }
 
     override suspend fun deleteCase(caseId: String) {
+        store.ensureLoaded()
         val newCases = store.cases.value.filterNot { it.id == caseId }
         val newItems = store.items.value.filterNot { it.caseId == caseId }
         store.saveCases(newCases, newItems)
@@ -56,6 +72,7 @@ class DefaultCaseRepository(private val store: CaseStore) : CaseRepository {
         note: String,
         incidentDateMillis: Long?
     ): CaseItem {
+        store.ensureLoaded()
         val item = CaseItem(
             id = UUID.randomUUID().toString(),
             caseId = caseId,
@@ -73,6 +90,7 @@ class DefaultCaseRepository(private val store: CaseStore) : CaseRepository {
         note: String,
         incidentDateMillis: Long?
     ): CaseItem {
+        store.ensureLoaded()
         val item = CaseItem(
             id = UUID.randomUUID().toString(),
             caseId = caseId,
@@ -86,6 +104,7 @@ class DefaultCaseRepository(private val store: CaseStore) : CaseRepository {
     }
 
     override suspend fun updateItem(itemId: String, note: String, incidentDateMillis: Long?) {
+        store.ensureLoaded()
         val newItems = store.items.value.map { item ->
             if (item.id == itemId) item.copy(note = note, incidentDateMillis = incidentDateMillis) else item
         }
@@ -93,11 +112,13 @@ class DefaultCaseRepository(private val store: CaseStore) : CaseRepository {
     }
 
     override suspend fun removeItem(itemId: String) {
+        store.ensureLoaded()
         val newItems = store.items.value.filterNot { it.id == itemId }
         store.saveCases(store.cases.value, newItems)
     }
 
     override suspend fun casesForEvidence(evidenceId: String): List<Case> {
+        store.ensureLoaded()
         val caseIds = store.items.value
             .filter { it.evidenceId == evidenceId }
             .map { it.caseId }

@@ -49,6 +49,7 @@ class CaseStore(
     private val _items = MutableStateFlow<List<CaseItem>>(emptyList())
     val items: StateFlow<List<CaseItem>> = _items.asStateFlow()
 
+    @Volatile private var loaded = false
     @Volatile private var unreadable = false
 
     // ── File helpers ──────────────────────────────────────────────────────────
@@ -58,13 +59,21 @@ class CaseStore(
     private val bakFile: File get() = File(directory, "$fileName.bak")
 
     private fun buildMasterKey(): MasterKey =
-        MasterKey.Builder(context, KEY_ALIAS)
+        MasterKey.Builder(context)
             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
             .build()
 
-    private fun buildEncryptedFile(target: File): EncryptedFile =
-        EncryptedFile.Builder(context, target, buildMasterKey(), EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB)
+    private fun buildEncryptedFile(target: File): EncryptedFile {
+        // EncryptedFile binds mFile.getName() as Tink StreamingAead Associated Authenticated
+        // Data (AAD). If a temporary file (e.g. "cases.enc.tmp") is used during atomic write,
+        // its name must match the canonical fileName ("cases.enc") so that subsequent reads of
+        // realFile ("cases.enc") succeed. An anonymous File subclass ensures getName() always returns fileName.
+        val boundFile = object : File(target.parentFile, target.name) {
+            override fun getName(): String = fileName
+        }
+        return EncryptedFile.Builder(context, boundFile, buildMasterKey(), EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB)
             .build()
+    }
 
     // ── Read helpers ──────────────────────────────────────────────────────────
 
@@ -86,6 +95,15 @@ class CaseStore(
      */
     suspend fun load() = mutex.withLock { loadLocked() }
 
+    /**
+     * Ensures the store has been loaded from disk. No-op if already loaded.
+     * Callers (e.g. [DefaultCaseRepository.observeCases]) can call this before
+     * collecting the [cases] flow so the first emission reflects persisted data.
+     */
+    suspend fun ensureLoaded() {
+        if (!loaded) load()
+    }
+
     private fun loadLocked() {
         // Recovery: if real file missing but .bak exists, restore backup.
         if (!realFile.exists() && bakFile.exists()) {
@@ -103,6 +121,7 @@ class CaseStore(
             } else {
                 tmpFile.delete()
             }
+            loaded = true
             return
         }
 
@@ -116,6 +135,7 @@ class CaseStore(
             // Real file is damaged — enter UNREADABLE state; leave file alone.
             unreadable = true
         }
+        loaded = true
     }
 
     private fun applyDoc(doc: CaseJson.StoreDoc) {
@@ -167,10 +187,12 @@ class CaseStore(
     // ── Mutation API ──────────────────────────────────────────────────────────
 
     suspend fun saveCases(cases: List<Case>, items: List<CaseItem>) = mutex.withLock {
+        if (!loaded) loadLocked()
         persistLocked(cases, items)
     }
 
     suspend fun deleteEverything() = mutex.withLock {
+        if (!loaded) loadLocked()
         requireWritable()
         realFile.delete()
         tmpFile.delete()
