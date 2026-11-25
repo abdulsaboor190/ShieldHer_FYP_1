@@ -47,7 +47,20 @@ Modern, calm, trustworthy, warm, not clinical. Do not make the whole UI green: b
 | File missing | Red | `ic_status_missing` | Distinct icon |
 | Not checked yet | Grey | `ic_status_not_checked` | Default state before verification |
 | Evidence deleted | Grey | `ic_status_deleted` | Tombstone state for deleted items |
-| Preview: not working yet (Account Check) | Grey | `ic_status_preview` | Layout-only preview badge |
+| Preview: not working yet (Account Check) | Grey | `ic_status_preview` | *Superseded by D18 (see Account Check section below)* |
+
+## Account Check Colours and Icons
+
+| Risk State | Meaning | Badge Tint | Text & Icon Colour | Icon File | Notes |
+|---|---|---|---|---|---|
+| HIGHER | Higher resemblance | Amber (`#FBF1E0`) | Text/icon `#8F5E12` (`@color/sh_risk_amber`) | `ic_risk_higher` | Raised caution; no green or red allowed. |
+| LOWER | Lower resemblance | Neutral grey (`#ECEDEF`) | Text/icon `#666A72` (`@color/sh_risk_neutral`) | `ic_risk_lower` | Grey to prevent false reassurance (never green). |
+| UNCERTAIN | Not enough confidence to say | Neutral grey (`#ECEDEF`) | Text/icon `#666A72` (`@color/sh_risk_neutral`) | `ic_risk_uncertain` | Model abstains due to low margin / ambiguity. |
+| UNSUPPORTED | Insufficient context or unsupported input | Neutral grey (`#ECEDEF`) | Text/icon `#666A72` (`@color/sh_risk_neutral`) | `ic_risk_unsupported` | Missing numbers or out-of-domain extreme values. |
+| NOT_VALIDATED | Not validated for this platform | Neutral grey (`#ECEDEF`) | Text/icon `#666A72` (`@color/sh_risk_neutral`) | `ic_risk_not_validated` | Non-Instagram platform selected (e.g. X/Twitter, Other). |
+
+### Colour Rule for Account Check
+Green is strictly reserved for cryptographic evidence integrity ("Unchanged since saved"). Red is strictly reserved for evidence corruption or missing files. Green and red are never used in Account Check to prevent giving users false reassurance or making accusatory claims about an online account. Amber is used only for HIGHER resemblance; neutral grey is used for all other states.
 
 *Note: Green is used only on badges and icons, never on buttons or headers. Account Check shows no result colours in FYP-I.*
 

@@ -14,7 +14,7 @@ FE-0.1: decisions D1 to D17 and DS-1 to DS-4
 |---|---|---|---|
 | D1 | Views + Material 3, not Compose | Gotam | Locked |
 | D2 | English only; all text in strings.xml | Team | Locked |
-| D3 | Account Check is layout only in FYP-I; no result shown; real results appear only in the jury slides | Team | Locked |
+| D3 | Account Check is layout only in FYP-I; no result shown; real results appear only in the jury slides | Team | Superseded by D18 |
 | D4 | Feature freeze Thu 3 Dec 2026; submission Thu 10 Dec 2026 | Team | Locked |
 | D5 | Vault changes: three additive methods only (verifyIntegrityDetailed, readForDisplay, importFromUri); existing vault code untouched; no database migration | Bhoomika | Locked |
 | D6 | Cases live in a separate small store; vault untouched | Bhoomika + Gotam | Locked |
@@ -29,6 +29,7 @@ FE-0.1: decisions D1 to D17 and DS-1 to DS-4
 | D15 | No app lock in FYP-I; no lock row in Settings | Team | Accepted (16 Nov) |
 | D16 | Tamper-demo tool: yes, debug builds only, first to cut | Abdul + Bhoomika | Accepted (16 Nov) |
 | D17 | Help screen moves to FYP-II unless Abdul has verified every contact from official pages by 25 Nov | Abdul | Accepted (16 Nov) |
+| D18 | Account Check runs the frozen model on the phone (reverses D3) | Team | Accepted (25 Nov) |
 | DS-1 | "Changed or unreadable since saved" uses muted red with a warning icon, a different icon from "File missing"; amber is reserved for "uncertain" (Account Check, FYP-II) | Team | Accepted (16 Nov) |
 | DS-2 | Badges use a light tinted background with text-version colour for text and icon | Gotam | Accepted (16 Nov) |
 | DS-3 | Light theme only, forced; never call DynamicColors | Gotam | Accepted (16 Nov) |
@@ -82,3 +83,40 @@ FE-0.1: decisions D1 to D17 and DS-1 to DS-4
 ### 5. Recommendation for D13
 - **Decision:** Keep **option (b)** ("New screens never call `sweepOrphans()`").
 - **Rationale:** Triggering filesystem sweeps during fragment navigation or UI rendering causes unnecessary background disk I/O and latency on app start. `IntakeActivity` already cleans up before accepting new files. Option (c) (`sweepStaleOrphans()`) is unnecessary overhead for FYP-I and remains deferred.
+
+---
+
+## D18 Account Check runs the frozen model on the phone (reverses D3)
+
+- **Context & Reversal:** Decision D3 initially limited Account Check to a static preview layout for FYP-I. Because the Stage 2 Random Forest model (300 trees, 5 features) was successfully frozen with full determinism, it has been exported into a compact binary format (`account_risk_model_v1.bin`, 918,820 bytes) and evaluated directly on-device in pure Kotlin. D3 is therefore reversed and superseded by D18.
+- **On-Device Evaluation & Privacy:**
+  - Evaluates entirely on the phone CPU without network calls.
+  - Zero permissions added: `android.permission.INTERNET` remains strictly absent from the Android Manifest.
+  - No typed data (followers, following, bio) is stored in SharedPreferences, SQLite, Room, or disk cache. Typed bio is converted to a Unicode code point count and discarded immediately.
+  - The `AccountCheckViewModel` contains zero `String` fields, and `onDestroyView` clears all inputs and transient state.
+- **Model Integrity & Golden Set Parity:**
+  - The model binary was exported read-only from the frozen Stage 2 bundle (`ml` commit `c014a1264a5648a48ad59713910ff1c694606f87`).
+  - Binary SHA-256: `ad11c13741920a37702b8b2e82fabf147015e6e0f29b249bf979cf09228ccc55` (matches `docs/stage3/account_risk_model_v1.manifest.json`).
+  - Evaluator parity verified across all 1,090 golden test rows (600 boundary, 350 random, 90 edge, 50 unsupported):
+    - Raw probability max difference: $9.992 \times 10^{-16} \le 1.0 \times 10^{-9}$ (PASS).
+    - Calibrated probability max difference: $9.992 \times 10^{-16} \le 1.0 \times 10^{-9}$ (PASS).
+    - Label and band agreement: 1,090 / 1,090 (100% exact match).
+  - The Stage 2 `ml/` repository directory was completely untouched (freeze verified before and after).
+- **Scope & Presentation Rules:**
+  - **Instagram Only:** Supported platforms constant is restricted to Instagram. Other platforms (e.g. X/Twitter, Other) immediately display "Not validated for this platform".
+  - **Bands, Never Numbers:** The UI presents only categorical qualitative bands ("Higher resemblance", "Lower resemblance", "Not enough confidence to say"), never a probability, percentage, or numeric risk score.
+  - **Colour Rules:** Amber token (`@color/sh_risk_amber`) is used solely for "Higher resemblance". Grey token (`@color/sh_risk_neutral`) is used for all other states. Green and red tokens are strictly forbidden to avoid false assurance or accusation.
+  - **No Explanations / TreeSHAP:** Feature importance and TreeSHAP are excluded because feature stability under distribution shift was not tested for mobile delivery.
+- **Timeline & Gate Status:**
+  - Implementation & verification completed 25 Nov 2026.
+  - All go/no-go gates passed with zero regressions.
+
+---
+
+## Freeze checklist additions
+1. Asset `app/src/main/assets/account_risk_model_v1.bin` SHA-256 matches `docs/stage3/account_risk_model_v1.manifest.json`.
+2. Export verification script `python -B scripts/export_risk_model.py --check` reports `OK`.
+3. Merged debug and release manifests have zero `INTERNET` permission.
+4. Account Check presents only categorical risk bands and never displays probabilities or percent signs.
+5. Supported platforms constant is strictly Instagram only (`RiskPlatform.INSTAGRAM`).
+

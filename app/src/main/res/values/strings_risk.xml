@@ -33,7 +33,7 @@
     <!-- PROPOSED: needs Abdul's review -->
     <string name="risk_limits_heading">Limits of this check</string>
     <!-- PROPOSED: needs Abdul's review -->
-    <string name="risk_limits_body">This is a research estimate from five public profile details. It was tested on one platform and is much less reliable on others. It can be wrong even when it sounds confident. It does not show who runs an account or what they have done, and it is not proof of anything.</string>
+    <string name="risk_limits_body">This is a research estimate from five public profile details. It was built on data from one platform and is much less reliable on others. It can be wrong even when it sounds confident. It does not show who runs an account or what they have done, and it is not proof of anything.</string>
     <!-- PROPOSED: needs Abdul's review -->
     <string name="risk_about_toggle">How well does this work?</string>
     <!-- PROPOSED: needs Abdul's review -->

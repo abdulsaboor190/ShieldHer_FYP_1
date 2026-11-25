@@ -16,7 +16,31 @@ Calm, plain, supportive, non-judgemental; short sentences; users may be in distr
 | "Not checked yet" | "Pending verification", "Unverified" |
 | "Received by ShieldHer" / "You entered" | "Created on", "Sent on" |
 | "Evidence deleted" | "Removed from vault", "Destroyed" |
-| "Preview: not working yet" and "Coming in the next version" (Account Check) | Any result, number, or the words "fake" or "bot" |
+| "Higher resemblance", "Lower resemblance", "Not enough confidence to say" | Any percentage, probability, or accusatory words: "fake", "bot", "malicious", "verified", "authentic", "secure", "protected", "tampered", "forged" |
+| "Preview: not working yet" and "Coming in the next version" (Account Check) | *Superseded by D18 (on-device evaluation enabled for Instagram)* |
+
+## Account Check Wording
+
+### Allowed Band Titles (exact match to strings_risk.xml)
+- **Higher resemblance:** "Higher resemblance to the research patterns"
+- **Lower resemblance:** "Lower resemblance to the research patterns"
+- **Uncertain / Not confident:** "Not enough confidence to say"
+- **Unsupported input:** "Insufficient context or unsupported input"
+- **Platform not validated:** "Not validated for this platform"
+
+### Core Framing Rule (Stage 2 rule G7)
+Always describe output as "resemblance to the research patterns". Never make definitive claims about account authenticity or identity.
+
+### Words Never Used
+Never use in copy or UI: `fake`, `bot` (as a whole word), `malicious`, `verified`, `authentic`, `secure`, `protected`, `tamper`, `forged`, or numeric probabilities/percentages (`%`).
+
+### Fixed Text Blocks
+
+#### Block 5: Limits and Context (risk_limits_body)
+"Research patterns come from accounts studied in 2017 to 2020. This check looks only at the numbers and length you typed, not the profile picture, posts or messages. It cannot tell whether an account is real, impersonated or operated by a human."
+
+#### Block 6: Model Line (risk_model_line)
+"Model: 300-tree random forest (v1, frozen Nov 2026). Evaluated on this phone without network access."
 
 ## Four Fixed Text Blocks
 
