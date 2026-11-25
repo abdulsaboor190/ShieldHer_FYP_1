@@ -1,0 +1,35 @@
+{
+  "format_version": 1,
+  "model_file": "account_risk_model_v1.bin",
+  "sha256": "ad11c13741920a37702b8b2e82fabf147015e6e0f29b249bf979cf09228ccc55",
+  "freeze_manifest_sha256": "002b72b1593e3485f0f6bcdf0a3e450e77658e7d5766924224e8a0b4c232c514",
+  "stage2_freeze_commit": "c014a1264a5648a48ad59713910ff1c694606f87",
+  "library_versions": {
+    "python": "3.11.9",
+    "numpy": "2.4.6",
+    "pandas": "3.0.6",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.1",
+    "shap": "0.51.0",
+    "joblib": "1.6.0"
+  },
+  "n_trees": 300,
+  "total_nodes": 32770,
+  "feature_order": [
+    "followers",
+    "following",
+    "description_length",
+    "external_url",
+    "follower_following_ratio"
+  ],
+  "has_scaler": 0,
+  "platt_constants": {
+    "slope": 0.7788447377548848,
+    "intercept": -0.10476139794002066,
+    "clip_low": 0.001,
+    "clip_high": 0.999
+  },
+  "tau": 0.78,
+  "export_date": "2026-11-25",
+  "note": "Exported from the frozen Stage 2 bundle; the ml folder was not modified."
+}
