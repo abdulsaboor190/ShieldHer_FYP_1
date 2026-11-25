@@ -300,7 +300,7 @@ Use the Stage 1 test isolation pattern for every new instrumented test (separate
 | FE-4.7a | Settings and privacy: UI | Fragment | Item count; screenshot toggle; storage text (v2 plan, section 7.1); backup status; "What ShieldHer cannot prove" page; **no app-lock row** | Abdul |
 | FE-4.7b | Settings: delete all | Logic | Deletes every evidence item through the repository **and** the case store, after confirmation | Bhoomika |
 | FE-4.8 | Onboarding (max 3 pages) | Pages | Shown once; re-readable from Settings; text from `strings.xml` | Bhoomika + Abdul |
-| FE-4.9 | Account Check layout (layout only) | Fragment | Grey "Preview: not working yet" badge; platform selector, followers, following, bio text, link yes/no; button shows only "Coming in the next version"; nothing typed is stored, logged or sent; no result colours or numbers | Abdul |
+| FE-4.9 | Account Check layout (layout only) | Fragment | Grey "Preview: not working yet" badge; platform selector, followers, following, bio text, link yes/no; button shows only "Coming in the next version"; nothing typed is stored, logged or sent; no result colours or numbers *(Note: Layout-only scope superseded by Decision D18; on-device evaluation enabled for Instagram with frozen model)* | Abdul |
 | FE-4.10 | Help and resources | Fragment | Only if Abdul verified every contact from official pages by 25 Nov; each shows "checked on <date>". Otherwise moved to FYP-II | Abdul |
 | FE-4.11 | Espresso core-flow test | Instrumented test | import → detail → verify → add to case → timeline passes on the emulator, run twice | Abdul |
 | FE-4.12 | State audit for screens 1 to 7 | Checklist in the repo | Every state in the v2 screen table implemented and tick-checked | Gotam |
@@ -364,7 +364,7 @@ Use the Stage 1 test isolation pattern for every new instrumented test (separate
 
 | ID | Deliverable | Acceptance check | Owner |
 |---|---|---|---|
-| FE-7.1 | Connect Account Check: FastAPI service wrapping `predict_one`, pinned Docker image (Python 3.11.9, scikit-learn 1.9.1, pandas 3.0.6, numpy 2.4.6, shap 0.51.0), no request logging, HTTPS in release | Same outputs as `predict_one` on 10 fixed inputs; no feature values in logs | Abdul |
+| FE-7.1 | Connect Account Check: FastAPI service wrapping `predict_one`, pinned Docker image (Python 3.11.9, scikit-learn 1.9.1, pandas 3.0.6, numpy 2.4.6, shap 0.51.0), no request logging, HTTPS in release *(Note: Replaced in FYP-I by on-device evaluation per Decision D18; server backend not required)* | Same outputs as `predict_one` on 10 fixed inputs; no feature values in logs | Abdul |
 | FE-7.1a | Account Check result states, in the design colours | Supported result, **uncertain (amber badge, text-version icon)**, **insufficient context or unsupported input (grey)**, "not validated for this platform" (grey), service unavailable; limits block always visible; each uses icon + colour + text | Abdul + Gotam |
 | FE-7.2 | Save a check to a case as a labelled item | Model version, training domain and tested conditions stored with it | Abdul |
 | FE-7.3 | Help (if postponed), Case summary (read-only, from real case data, no export), SafeShare Preview (labelled mock or read-only EXIF check) | Each labelled honestly | Bhoomika / Gotam |
