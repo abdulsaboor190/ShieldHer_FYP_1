@@ -53,6 +53,20 @@ object ServiceLocator {
         _riskChecker = com.shieldher.dashboard.check.risk.OnDeviceRiskChecker(appContext)
     }
 
+    fun resetToDefaults(context: Context) {
+        fakesInstalled = false
+        val appContext = context.applicationContext
+        val vaultRepo = EvidenceRepository(appContext)
+        _evidenceGateway = VaultEvidenceGateway(vaultRepo)
+
+        val casesDir = File(appContext.filesDir, "cases")
+        val caseStore = CaseStore(appContext, casesDir)
+        _caseRepository = DefaultCaseRepository(caseStore)
+
+        _riskChecker = com.shieldher.dashboard.check.risk.OnDeviceRiskChecker(appContext)
+        verificationSession.clear()
+    }
+
     fun installFakes() {
         fakesInstalled = true
         _evidenceGateway = FakeEvidenceGateway()

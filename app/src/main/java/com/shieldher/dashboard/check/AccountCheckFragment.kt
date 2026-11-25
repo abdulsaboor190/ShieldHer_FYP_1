@@ -180,8 +180,17 @@ class AccountCheckFragment : Fragment() {
         inputFollowing?.setText("")
         inputBio?.setText("")
         chipGroupPlatform?.clearCheck()
+        findViewByIdCheckedClear()
         switchHasLink?.isChecked = false
         textPlatformAlert?.visibility = View.GONE
+    }
+
+    private fun findViewByIdCheckedClear() {
+        chipGroupPlatform?.let { group ->
+            for (i in 0 until group.childCount) {
+                (group.getChildAt(i) as? com.google.android.material.chip.Chip)?.isChecked = false
+            }
+        }
     }
 
     override fun onDestroyView() {
